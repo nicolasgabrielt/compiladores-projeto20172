@@ -45,6 +45,7 @@ import org.xtext.example.mydsl.myDsl.primary_expression
 import org.xtext.example.mydsl.myDsl.assignment_expression
 import org.xtext.example.mydsl.myDsl.function_definition
 import org.xtext.example.mydsl.myDsl.selection_statement
+import org.xtext.example.mydsl.myDsl.iteration_statement
 import org.xtext.example.mydsl.myDsl.MyDslPackage
 import java.util.List
 import java.util.ArrayList
@@ -79,33 +80,23 @@ class MyDslValidator extends AbstractMyDslValidator {
 		variables.clear();
 		functions.clear();
 	}
-  
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					MyDslPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+	
 	private var variables = <String,String>newHashMap();
 	
 	def checkDeclarationWithConstant(String leftType, primary_expression rightType){
 		if(rightType.constant.f_constant == null && rightType.constant.enumz == null && rightType.constant.char == null){
-			if(leftType == "char" || leftType == 'bool' || leftType == 'void'){
+			if(leftType == "char" || leftType == 'bool' || leftType == 'void' || leftType == 'string'){
 							error('Esse tipo não recebe valores numéricos', 
 					MyDslPackage.Literals.DECLARATION__DECLARATION_SPECIFIERS);
 			}
 		}else if(rightType.constant.f_constant != null){
-			if(leftType == "char" || leftType == 'bool' || leftType == 'void' || leftType == "int"){
+			if(leftType == "char" || leftType == 'bool' || leftType == 'void' || leftType == "int" || leftType == 'string'){
 							error('Esse tipo não recebe valores numéricos com ponto flutuante', 
 					MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
 			}
 		} else if (rightType.constant.char != null) {
-			if (leftType != "char") {
-				error("Esse tipo não recebe char", MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
+			if (leftType != "char" || leftType != "string" ) {
+				error("Esse tipo não recebe String", MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
 			}
 		}
 	}
@@ -137,7 +128,15 @@ class MyDslValidator extends AbstractMyDslValidator {
 							DECLARATION__INIT_DECLARATOR_LIST
 					)
 				}
-			} 
+			} else if (expType == ExpRetType.CHAR) {
+				if (leftType != "char" || leftType != "string") {
+					error(
+						"Não é possível atribuir String para o tipo declarado",
+						MyDslPackage.Literals.
+							DECLARATION__INIT_DECLARATOR_LIST
+					)
+				}
+			}
 		}
 		var rightType = decl.init_declarator_list.get(0).init_declarator.initializer.assignment_expression.conditional_expression.
 							logical_or_expression.logical_and_expression.inclusive_or_expression.exclusive_or_expression.
@@ -231,4 +230,660 @@ class MyDslValidator extends AbstractMyDslValidator {
 		}
 		return null;		
 	}
-}
+	  public static val INVALID_NAME = 'invalidName'
+	
+	@Check
+	def validateFunctionReturn(jump_statement ret){
+		if(ret.expression != null){
+			var current = ret.eContainer();
+            while(current != null && !(current instanceof function_definition)){
+                current = current.eContainer();
+            }
+            if(current instanceof function_definition){
+                var func = current as function_definition;
+                var argType = func.declaration_specifiers.get(0).type_specifier.type_name_str;
+                if(argType != "void"){
+                	var arg = ret.expression.assignment_expression;
+                	if(getExpType(arg) != null){
+						var expRet = getExpType(arg);
+						if(expRet == ExpRetType.NUMERIC){
+							if(argType == 'bool'){
+								error("Tipo de parametro não compativel",
+									null
+								)
+							}
+						}else if(expRet == ExpRetType.BOOL){
+							if(argType != 'bool'){
+								error("Tipo de parametro não compativel",
+									null
+								)
+							}
+						}
+					}else{
+						println("Is an contant or id")
+						var idOrCons = primaryExpFromAssigExp(arg);
+						if(idOrCons.identifier != null && !idOrCons.identifier.trim().isEmpty()){
+							if(variables.containsKey(idOrCons.identifier)){
+								//é UMA VARIAAVEL
+								if(variables.get(idOrCons.identifier) != argType){
+									error("Retorno não compatível",
+										null
+									)
+								}
+							}else if( functions.containsKey(idOrCons.identifier)){
+								if(functions.get(idOrCons.identifier).retType != argType){
+									error("Retorno não compatíve",
+										null
+									)
+								}
+							}
+						}
+						if(idOrCons.constant != null && idOrCons.constant.char != null && argType != 'char'){
+							error("Retorno não compatíve",
+									null
+							)
+						}
+						//O argumento é uma contante ou um id
+					}
+                }
+            }
+		}
+	}
+	
+	@Check
+	def checkForEmptyParamFunc(PostFixEmpryParams call){
+		var parent = call.eContainer().eContainer() as postfix_expression;
+		var name = parent.primary_expression.identifier;
+		if(!functions.containsKey(name)){
+			error("Função não definida",
+				null
+			)
+		}else{
+			var func = functions.get(name);
+			if(func.param_number != 0){
+				error("Numero de parametros incompativeis",
+					null
+				)
+			}
+		}
+	}
+	
+	def primaryExpFromAssigExp(assignment_expression exp){
+		var ret = exp.conditional_expression.
+		logical_or_expression.logical_and_expression.inclusive_or_expression.exclusive_or_expression.
+		and_expression.equality_expression.relational_expression.shift_expression.additive_expression.
+		multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+		return ret;
+	}
+	def t(){
+		if(true){
+			return 3
+		}else{
+			return "oia"
+		}
+	}
+	
+
+	    @Check
+    def checkBlockItemList(block_item_list item){
+        if(item.block_item_list_linha.isEmpty()){
+            //função de uma linha
+            //Final na função
+            var current = item.eContainer();
+            while(current != null && !(current instanceof function_definition || current instanceof selection_statement)){
+                current = current.eContainer();
+            }
+            if(current instanceof function_definition){
+                println("Achou funcao2...");
+                var func = current as function_definition;
+                var retType = func.declaration_specifiers.get(0).type_specifier.type_name_str;
+                if(retType != "void"){
+                    if(item.block_item.statement == null || item.block_item.statement.jump_statement == null
+                        || item.block_item.statement.jump_statement.expression == null
+                    ){
+                        error("Falta o return", null);
+                    }
+                }
+            }
+        }    
+    }
+    
+    @Check
+    def checkBlockItemListLinha(block_item_list_linha item){
+        println("Sem instancia...");
+        if(item.block_item_list_linha.isEmpty()){
+            println("Iniciando checagem...");
+            var current = item.eContainer();
+            while(current != null && !(current instanceof function_definition || current instanceof selection_statement)){
+                current = current.eContainer();
+            }
+            println("Achou funcao...");
+            if(current instanceof function_definition){
+                println("Achou funcao2...");
+                var func = current as function_definition;
+                var retType = func.declaration_specifiers.get(0).type_specifier.type_name_str;
+                if(retType != "void"){
+                    if((item.block_item.statement == null || item.block_item.statement.jump_statement == null
+                        || item.block_item.statement.jump_statement.expression == null)
+                    ){
+                        error("Falta o return", null);
+                    }
+                }
+            }
+            //Final na função
+        }    
+    }
+	
+	def evaluateExp(primary_expression primatyExp){
+		if(primatyExp.expression == null){
+			if(primatyExp.identifier != null && !primatyExp.identifier.trim().isEmpty()){
+				if(!variables.containsKey(primatyExp.identifier)){
+					error("Variavel não declarada", null);
+					return ExpRetType.NUMERIC;
+				}
+				var varType = variables.get(primatyExp.identifier);
+				if(varType.equals('char')){
+					return ExpRetType.CHAR;
+				}else{
+					return ExpRetType.NUMERIC;
+				}
+			}
+			if(primatyExp.constant.char != null && !primatyExp.constant.char.trim().isEmpty()){
+				return ExpRetType.CHAR;
+			}
+			return ExpRetType.NUMERIC;
+		}else{			
+			return getExpType(primatyExp.expression.assignment_expression);
+		}
+	}
+	
+	@Check
+	def CheckAndExpExp(and_expression andExp){
+		if(andExp.and_expression_linha != null){
+			var currentExp = andExp.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);			
+			if(lType != ExpRetType.BOOL){
+				error("Expressão E não pode operar em cima deste tipo", 
+					MyDslPackage.Literals.AND_EXPRESSION__EQUALITY_EXPRESSION
+				);
+			}												
+			var rSide = andExp.and_expression_linha.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType != ExpRetType.BOOL){
+				error("Expressão E pode operar em cima deste tipo", 
+					MyDslPackage.Literals.AND_EXPRESSION__AND_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação aditiva",
+					null
+				)
+			}
+		}
+	}
+	
+		@Check
+	def CheckRelationalExp(relational_expression relExp){
+		if(relExp.relational_expression_linha!= null){
+			var currentExp = relExp.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);			
+			if(lType == ExpRetType.BOOL){
+				error("Expressão relacional não pode operar em cima deste tipo", 
+					null
+				);
+			}												
+			var rSide = relExp.relational_expression_linha.shift_expression_complement.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType == ExpRetType.BOOL){
+				error("Expressão relacional pode operar em cima deste tipo", 
+					MyDslPackage.Literals.RELATIONAL_EXPRESSION__RELATIONAL_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação aditiva",
+					null
+				)
+			}
+		}
+	}
+
+	@Check
+	def CheckExclusiveOrExp(exclusive_or_expression orExp){
+		if(orExp.exclusive_or_expression_linha != null){
+			var currentExp = orExp.and_expression.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);			
+			if(lType != ExpRetType.BOOL){
+				error("Expressão ou exclusivo pode operar em cima deste tipo", 
+					MyDslPackage.Literals.EXCLUSIVE_OR_EXPRESSION__AND_EXPRESSION
+				);
+			}												
+			var rSide = orExp.exclusive_or_expression_linha.and_expression.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType != ExpRetType.BOOL){
+				error("Expressão ou exclusivo pode operar em cima deste tipo", 
+					MyDslPackage.Literals.EXCLUSIVE_OR_EXPRESSION__EXCLUSIVE_OR_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação aditiva",
+					null
+				)
+			}
+		}
+	}
+
+	@Check
+	def CheckInclusiveOrExp(inclusive_or_expression orExp){
+		if(orExp.inclusive_or_expression_linha != null){
+			var currentExp = orExp.exclusive_or_expression.and_expression.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);			
+			if(lType != ExpRetType.BOOL){
+				error("Expressão ou inclusivo pode operar em cima deste tipo", 
+					MyDslPackage.Literals.INCLUSIVE_OR_EXPRESSION__EXCLUSIVE_OR_EXPRESSION
+				);
+			}												
+			var rSide = orExp.inclusive_or_expression_linha.exclusive_or_expression.and_expression.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType != ExpRetType.BOOL){
+				error("Expressão ou inclusivo pode operar em cima deste tipo", 
+					MyDslPackage.Literals.INCLUSIVE_OR_EXPRESSION__INCLUSIVE_OR_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação aditiva",
+					null
+				)
+			}
+		}
+	}
+
+	@Check
+	def CheckLogicalAndExp(logical_and_expression andExp){
+		if(andExp.logical_and_expression_linha != null){
+			var currentExp = andExp.inclusive_or_expression.exclusive_or_expression.and_expression.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);
+			if(lType != ExpRetType.BOOL){
+				error("Expressão E lógico pode operar em cima deste tipo", 
+					MyDslPackage.Literals.LOGICAL_AND_EXPRESSION__INCLUSIVE_OR_EXPRESSION
+				);
+			}						
+			var rSide = andExp.logical_and_expression_linha.inclusive_or_expression.exclusive_or_expression.and_expression.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType != ExpRetType.BOOL){
+				error("Expressão E lógico pode operar em cima deste tipo", 
+					MyDslPackage.Literals.LOGICAL_AND_EXPRESSION__LOGICAL_AND_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação aditiva",
+					null
+				)
+			}
+		}
+	}
+	
+	@Check
+	def CheckLogicalOrExp(logical_or_expression orExp){
+		if(orExp.logical_or_expression_linha != null){
+			var currentExp = orExp.logical_and_expression.inclusive_or_expression.exclusive_or_expression.and_expression.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);
+			if(lType != ExpRetType.BOOL){
+				error("Expressão ou lógico pode operar em cima deste tipo", 
+					MyDslPackage.Literals.LOGICAL_OR_EXPRESSION__LOGICAL_AND_EXPRESSION
+				);
+			}
+			
+			var rSide = orExp.logical_or_expression_linha.logical_and_expression.inclusive_or_expression.exclusive_or_expression.and_expression.equality_expression.relational_expression.shift_expression.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType != ExpRetType.BOOL){
+				error("Expressão ou lógico pode operar em cima deste tipo", 
+					MyDslPackage.Literals.LOGICAL_OR_EXPRESSION__LOGICAL_OR_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação aditiva",
+					null
+				)
+			}
+		}
+	}
+	
+	@Check
+	def CheckAdditiveExp(additive_expression addExp){
+		if(addExp.additive_expression_linha != null){
+			var currentExp = addExp.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);
+			if(lType == ExpRetType.BOOL){
+				error("Expressão aditiva pode operar em cima deste tipo", 
+					MyDslPackage.Literals.ADDITIVE_EXPRESSION__MULTIPLICATIVE_EXPRESSION
+				);
+			}
+			
+			var rSide = addExp.additive_expression_linha.additive_expression_complement.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType == ExpRetType.BOOL){
+				error("Expressão aditiva pode operar em cima deste tipo", 
+					MyDslPackage.Literals.ADDITIVE_EXPRESSION__ADDITIVE_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação aditiva",
+					null
+				)
+			}
+		}
+	}
+	
+	@Check
+	def CheckShiftExp(shift_expression shiftExp){
+		if(shiftExp.shift_expression_linha != null){
+			var currentExp = shiftExp.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);
+			if(lType == ExpRetType.BOOL){
+				error("Expressão aditiva pode operar em cima deste tipo", 
+					MyDslPackage.Literals.SHIFT_EXPRESSION__ADDITIVE_EXPRESSION
+				);
+			}
+			
+			var rSide = shiftExp.shift_expression_linha.shift_expression_complement.additive_expression.multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType == ExpRetType.BOOL){
+				error("Expressão aditiva pode operar em cima deste tipo", 
+					MyDslPackage.Literals.SHIFT_EXPRESSION__SHIFT_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação aditiva",
+					null
+				)
+			}
+		}
+	}
+	
+	@Check
+	def CheckMultiplicativeExp(multiplicative_expression mulExp){
+		if(mulExp.multiplicative_expression_linha != null){
+			var currentExp = mulExp.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var lType = evaluateExp(currentExp);
+			if(lType == ExpRetType.BOOL){
+				error("Expressão multiplicativa não pode operar em cima deste tipo", 
+					MyDslPackage.Literals.MULTIPLICATIVE_EXPRESSION__CAST_EXPRESSION
+				);
+			}
+			
+			var rSide = mulExp.multiplicative_expression_linha.multiplicative_expression_complement.cast_expression.unary_expression.postfix_expression.primary_expression;
+			var rType = evaluateExp(rSide);
+			if(rType == ExpRetType.BOOL){
+				error("Expressão multiplicativa pode operar em cima deste tipo", 
+					MyDslPackage.Literals.MULTIPLICATIVE_EXPRESSION__MULTIPLICATIVE_EXPRESSION_LINHA
+				);
+			}
+			if(rType != lType){
+				error("Tipos incompativeis na operação multiplicativa",
+					null
+				)
+			}
+		}
+	}
+	
+	@Check
+	def checkFunctionCall(postfix_expression_complement call){
+		var parent = call.eContainer().eContainer() as postfix_expression;
+		var name = parent.primary_expression.identifier;
+		if(!functions.containsKey(name)){
+			error("Função não definida",
+				null
+			)
+		}else{
+			var func = functions.get(name);
+			println("Checking params for: " + func.name + " With: " + func.params_types.size() + " params.")
+			if(func.param_number != call.argument_expression_list.assignment_expressions.size()){
+				error("Numero de parametros incompativeis",
+					MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+				)
+			}else{
+				for(var i = 0; i < call.argument_expression_list.assignment_expressions.size(); i++){
+					var arg = call.argument_expression_list.assignment_expressions.get(i);
+					println("Size: " + call.argument_expression_list.assignment_expressions.size());
+					println("For: " + i);
+					var argType = func.params_types.get(i);
+					if(getExpType(arg) != null){
+						println("Is an expression");
+						var expRet = getExpType(arg);
+						if(expRet == ExpRetType.NUMERIC){
+							if(argType == 'bool'){
+								error("Tipo de parametro não compativel",
+									MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+								)
+							}
+						}else if(expRet == ExpRetType.BOOL){
+							if(argType != 'bool'){
+								error("Tipo de parametro não compativel",
+									MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+								)
+							}
+						}
+					}else{
+						println("Is an contant or id")
+						var idOrCons = primaryExpFromAssigExp(arg);
+						println("CP1");
+						if(idOrCons.identifier != null && !idOrCons.identifier.trim().isEmpty()){
+							println("CP2");
+							if(variables.containsKey(idOrCons.identifier)){
+								//é UMA VARIAAVEL
+								if(variables.get(idOrCons.identifier) != argType){
+									println("CP3");
+									error("Tipo de parametro não compativel",
+										MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+									)
+								}
+							}else if( functions.containsKey(idOrCons.identifier)){
+								if(functions.get(idOrCons.identifier).retType != argType){
+									error("Tipo de parametro não compativel",
+										MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+									)
+								}
+							}
+						}
+						println("CP4");
+						if(idOrCons.constant != null && idOrCons.constant.char != null && argType != 'char'){
+							println("CP5");
+							error("Tipo de parametro não com 	pativel",
+									MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+							)
+						}
+						println("CP7");
+						//O argumento é uma contante ou um id
+					}
+					println("End of iteration");
+					//Validating params
+					//call.argument_expression_list.get(i)
+				}
+				println("For ended");
+			}
+		}
+		
+	}
+	
+	@Check
+	def checkPrimaryExpression(primary_expression exp){
+		if(exp.identifier != null && !exp.identifier.trim().isEmpty()){
+			if(!variables.containsKey(exp.identifier) && !functions.containsKey(exp.identifier)){
+				error("Variavel não declarada",
+					MyDslPackage.Literals.PRIMARY_EXPRESSION__IDENTIFIER
+				)
+			}			
+		}
+	}
+	
+	def validateActribWithId(String idLeft, String idRight){
+			if(!variables.keySet.contains(idRight)){
+				error('Variavel não declarada',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__ASSIGNMENT_EXPRESSION
+				);
+			}			
+			var tr = variables.get(idRight);
+			var tl = variables.get(idLeft);		
+			validateAlarg(tr,tl);
+	}
+	
+	
+	@Check 
+	def checkEnumValid(enum_specifier enumz){
+		if(enumz.identifier != null){
+			if(variables.containsKey(enumz.identifier)){
+				error("Variável já declarada", 
+					MyDslPackage.Literals.ENUM_SPECIFIER__IDENTIFIER
+				);
+			}else{
+				variables.put(enumz.identifier, 'enum');	
+			}			
+		}
+	}
+	@Check
+	def checkAtribType(assignment_expression asexp){		
+		var idLeft = asexp.unary_expression.postfix_expression.primary_expression.identifier;
+		var argType = variables.get(idLeft);
+		if(!variables.keySet.contains(idLeft)){
+			error('Variavel não declarada',
+				MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+			);
+		}
+		if(asexp.assignment_expression != null && getExpType(asexp.assignment_expression) != null){
+			var arg = asexp.assignment_expression;
+			println("Is an expressionz");
+			var expRet = getExpType(arg);
+			if(expRet == ExpRetType.NUMERIC){
+				if(argType == 'bool'){
+					error("Variavel não compativel com este tipo",
+						null
+					)
+				}
+			}else if(expRet == ExpRetType.BOOL){
+				if(argType != 'bool'){
+					error("Tipo de parametro não compativel",
+						null
+					)
+				}
+			}
+		}else{
+			println("Eh um id oyu consz")
+			var idOrCons = primaryExpFromAssigExp(asexp.assignment_expression);
+			if(idOrCons.identifier != null && !idOrCons.identifier.trim().isEmpty()){
+				if(variables.containsKey(idOrCons.identifier)){
+					//é UMA VARIAAVEL
+					if(variables.get(idOrCons.identifier) != argType){						
+						error("Variavel não compativel com este tipo",
+							null
+						)
+					}
+				}else if( functions.containsKey(idOrCons.identifier)){
+					if(functions.get(idOrCons.identifier).retType != argType){
+						error("Variavel não compativel com este tipo",
+							null
+						)
+					}
+				}
+			}			
+			if(idOrCons.constant != null && idOrCons.constant.char != null && argType != 'char'){				
+				error("Variavel não compativel com este tipo",
+						null
+				)
+			}		
+			//O argumento é uma contante ou um id
+		}
+	}
+	
+	def validateAlarg(String tr, String tl){
+		if(tl == "int" && tr=="float"){
+				error('Tipos incompativeis, De float para int',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}
+			if(tl == "int" && tr=="double"){
+				error('Tipos incompativeis, De double para int',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}
+			if(tl == "short" && tr=="float"){
+				error('Tipos incompativeis, De float para short',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}
+			if(tl == "short" && tr=="double"){
+				error('Tipos incompativeis, De double para short',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}
+			if(tl == "long" && tr=="float"){
+				error('Tipos incompativeis, De float para long',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}
+			if(tl == "long" && tr=="double"){
+				error('Tipos incompativeis, De double para long',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}
+			if(tl == "int" && tr=="long"){
+				error('Tipos incompativeis, De int para long',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}
+			if(tl == "signed" && tr=="unsigned"){
+				error('Tipos unsigned, De long para signed',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}
+			if(tl == "unsigned" && tr=="signed"){
+				error('Tipos incompativeis, De unsigned para signed',
+					MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+				);
+			}	
+	}
+	
+	@Check
+	def checkFunctionDefinition(function_definition func_decl){
+		//Não tem parametros
+		var f = new Function();		
+		if(func_decl.declarator.direct_declarator.direct_declarator_linha.direct_declarator_complemento == null){
+			f.retType = func_decl.declaration_specifiers.get(0).type_specifier.type_name_str;
+			f.name = func_decl.declarator.direct_declarator.identifier.toString();
+			f.param_number = 0;
+			println("Inserting function... " + f.name + "With 0 params");
+			functions.put(f.name, f);
+		}else{
+			f.retType = func_decl.declaration_specifiers.get(0).type_specifier.type_name_str;
+			f.name = func_decl.declarator.direct_declarator.identifier.toString();
+			var params = func_decl.declarator.direct_declarator.direct_declarator_linha.direct_declarator_complemento.parameter_type_list.parameter_lista.parameter_declarations;
+			f.param_number = params.size;		
+			for(var i = 0; i< f.param_number; i++){
+				var decl = params.get(i);
+				f.params_types.add(decl.declaration_specifiers.type_specifier.type_name_str);
+				
+				variables.put(decl.declarator.direct_declarator.identifier, decl.declaration_specifiers.type_specifier.type_name_str);
+			}
+			println("Inserting function... " + f.name + "with " + f.param_number + " params");
+			functions.put(f.name, f);
+			//println( "size:" + func_decl.declarator.direct_declarator.direct_declarator_linha.direct_declarator_complemento.parameter_type_list.parameter_list.get(0));
+		}
+	@Check
+	def checkWhile(iteration_statement ite_stmt){
+		if (getExpType(ite_stmt.expression.assignment_expression.assignment_expression) != ExpRetType.BOOL){
+			error("Expressão booleana esperada", MyDslPackage.Literals.ITERATION_STATEMENT__EXPRESSION_STATEMENT);
+		}
+		ite_stmt.statement.compound_statement;
+	}
+		
+	}
+
+//	public static val INVALID_NAME = 'invalidName'
+//
+//	@Check
+//	def checkGreetingStartsWithCapital(Greeting greeting) {
+//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
+//			warning('Name should start with a capital', 
+//					MyDslPackage.Literals.GREETING__NAME,
+//					INVALID_NAME)
+//		}
+//	}
