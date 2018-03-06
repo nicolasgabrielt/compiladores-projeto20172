@@ -8,26 +8,25 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.string_ufcg;
+import org.xtext.example.mydsl.myDsl.string_dsl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>string ufcg</b></em>'.
+ * An implementation of the model object '<em><b>string dsl</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.string_ufcgImpl#getString_literal <em>String literal</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.string_ufcgImpl#get__func__ <em>func </em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.string_dslImpl#getString_literal <em>String literal</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.string_dslImpl#get__func__ <em>func </em>}</li>
  * </ul>
  *
  * @generated
  */
-public class string_ufcgImpl extends MinimalEObjectImpl.Container implements string_ufcg
+public class string_dslImpl extends primary_expressionImpl implements string_dsl
 {
   /**
    * The default value of the '{@link #getString_literal() <em>String literal</em>}' attribute.
@@ -74,7 +73,7 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
    * <!-- end-user-doc -->
    * @generated
    */
-  protected string_ufcgImpl()
+  protected string_dslImpl()
   {
     super();
   }
@@ -87,7 +86,7 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
   @Override
   protected EClass eStaticClass()
   {
-    return MyDslPackage.Literals.STRING_UFCG;
+    return MyDslPackage.Literals.STRING_DSL;
   }
 
   /**
@@ -110,7 +109,7 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
     String oldString_literal = string_literal;
     string_literal = newString_literal;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.STRING_UFCG__STRING_LITERAL, oldString_literal, string_literal));
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.STRING_DSL__STRING_LITERAL, oldString_literal, string_literal));
   }
 
   /**
@@ -133,7 +132,7 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
     String old__func__ = __func__;
     __func__ = new__func__;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.STRING_UFCG__FUNC_, old__func__, __func__));
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.STRING_DSL__FUNC_, old__func__, __func__));
   }
 
   /**
@@ -146,9 +145,9 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
   {
     switch (featureID)
     {
-      case MyDslPackage.STRING_UFCG__STRING_LITERAL:
+      case MyDslPackage.STRING_DSL__STRING_LITERAL:
         return getString_literal();
-      case MyDslPackage.STRING_UFCG__FUNC_:
+      case MyDslPackage.STRING_DSL__FUNC_:
         return get__func__();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -164,10 +163,10 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
   {
     switch (featureID)
     {
-      case MyDslPackage.STRING_UFCG__STRING_LITERAL:
+      case MyDslPackage.STRING_DSL__STRING_LITERAL:
         setString_literal((String)newValue);
         return;
-      case MyDslPackage.STRING_UFCG__FUNC_:
+      case MyDslPackage.STRING_DSL__FUNC_:
         set__func__((String)newValue);
         return;
     }
@@ -184,10 +183,10 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
   {
     switch (featureID)
     {
-      case MyDslPackage.STRING_UFCG__STRING_LITERAL:
+      case MyDslPackage.STRING_DSL__STRING_LITERAL:
         setString_literal(STRING_LITERAL_EDEFAULT);
         return;
-      case MyDslPackage.STRING_UFCG__FUNC_:
+      case MyDslPackage.STRING_DSL__FUNC_:
         set__func__(_FUNC__EDEFAULT);
         return;
     }
@@ -204,9 +203,9 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
   {
     switch (featureID)
     {
-      case MyDslPackage.STRING_UFCG__STRING_LITERAL:
+      case MyDslPackage.STRING_DSL__STRING_LITERAL:
         return STRING_LITERAL_EDEFAULT == null ? string_literal != null : !STRING_LITERAL_EDEFAULT.equals(string_literal);
-      case MyDslPackage.STRING_UFCG__FUNC_:
+      case MyDslPackage.STRING_DSL__FUNC_:
         return _FUNC__EDEFAULT == null ? __func__ != null : !_FUNC__EDEFAULT.equals(__func__);
     }
     return super.eIsSet(featureID);
@@ -231,4 +230,4 @@ public class string_ufcgImpl extends MinimalEObjectImpl.Container implements str
     return result.toString();
   }
 
-} //string_ufcgImpl
+} //string_dslImpl

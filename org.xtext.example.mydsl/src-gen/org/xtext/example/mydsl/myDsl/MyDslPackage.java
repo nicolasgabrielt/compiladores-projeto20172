@@ -4326,14 +4326,50 @@ public interface MyDslPackage extends EPackage
   int INIT_DECLARATOR_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.string_ufcgImpl <em>string ufcg</em>}' class.
+   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.string_dslImpl <em>string dsl</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.string_ufcgImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getstring_ufcg()
+   * @see org.xtext.example.mydsl.myDsl.impl.string_dslImpl
+   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getstring_dsl()
    * @generated
    */
-  int STRING_UFCG = 110;
+  int STRING_DSL = 110;
+
+  /**
+   * The feature id for the '<em><b>Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_DSL__IDENTIFIER = PRIMARY_EXPRESSION__IDENTIFIER;
+
+  /**
+   * The feature id for the '<em><b>Constant</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_DSL__CONSTANT = PRIMARY_EXPRESSION__CONSTANT;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_DSL__EXPRESSION = PRIMARY_EXPRESSION__EXPRESSION;
+
+  /**
+   * The feature id for the '<em><b>Generic selection</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_DSL__GENERIC_SELECTION = PRIMARY_EXPRESSION__GENERIC_SELECTION;
 
   /**
    * The feature id for the '<em><b>String literal</b></em>' attribute.
@@ -4342,7 +4378,7 @@ public interface MyDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STRING_UFCG__STRING_LITERAL = 0;
+  int STRING_DSL__STRING_LITERAL = PRIMARY_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>func </b></em>' attribute.
@@ -4351,16 +4387,16 @@ public interface MyDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STRING_UFCG__FUNC_ = 1;
+  int STRING_DSL__FUNC_ = PRIMARY_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>string ufcg</em>' class.
+   * The number of structural features of the '<em>string dsl</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STRING_UFCG_FEATURE_COUNT = 2;
+  int STRING_DSL_FEATURE_COUNT = PRIMARY_EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.constantImpl <em>constant</em>}' class.
@@ -4400,13 +4436,22 @@ public interface MyDslPackage extends EPackage
   int CONSTANT__CHAR = 2;
 
   /**
+   * The feature id for the '<em><b>String</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTANT__STRING = 3;
+
+  /**
    * The feature id for the '<em><b>Enumz</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONSTANT__ENUMZ = 3;
+  int CONSTANT__ENUMZ = 4;
 
   /**
    * The number of structural features of the '<em>constant</em>' class.
@@ -4415,7 +4460,7 @@ public interface MyDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTANT_FEATURE_COUNT = 4;
+  int CONSTANT_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.EnumeratorListLinhaActionImpl <em>Enumerator List Linha Action</em>}' class.
@@ -8791,36 +8836,36 @@ public interface MyDslPackage extends EPackage
   EReference getinit_declarator_Initializer();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.string_ufcg <em>string ufcg</em>}'.
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.string_dsl <em>string dsl</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>string ufcg</em>'.
-   * @see org.xtext.example.mydsl.myDsl.string_ufcg
+   * @return the meta object for class '<em>string dsl</em>'.
+   * @see org.xtext.example.mydsl.myDsl.string_dsl
    * @generated
    */
-  EClass getstring_ufcg();
+  EClass getstring_dsl();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.string_ufcg#getString_literal <em>String literal</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.string_dsl#getString_literal <em>String literal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>String literal</em>'.
-   * @see org.xtext.example.mydsl.myDsl.string_ufcg#getString_literal()
-   * @see #getstring_ufcg()
+   * @see org.xtext.example.mydsl.myDsl.string_dsl#getString_literal()
+   * @see #getstring_dsl()
    * @generated
    */
-  EAttribute getstring_ufcg_String_literal();
+  EAttribute getstring_dsl_String_literal();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.string_ufcg#get__func__ <em>func </em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.string_dsl#get__func__ <em>func </em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>func </em>'.
-   * @see org.xtext.example.mydsl.myDsl.string_ufcg#get__func__()
-   * @see #getstring_ufcg()
+   * @see org.xtext.example.mydsl.myDsl.string_dsl#get__func__()
+   * @see #getstring_dsl()
    * @generated
    */
-  EAttribute getstring_ufcg___func__();
+  EAttribute getstring_dsl___func__();
 
   /**
    * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.constant <em>constant</em>}'.
@@ -8864,6 +8909,17 @@ public interface MyDslPackage extends EPackage
    * @generated
    */
   EAttribute getconstant_Char();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.constant#getString <em>String</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>String</em>'.
+   * @see org.xtext.example.mydsl.myDsl.constant#getString()
+   * @see #getconstant()
+   * @generated
+   */
+  EAttribute getconstant_String();
 
   /**
    * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.constant#getEnumz <em>Enumz</em>}'.
@@ -12396,14 +12452,14 @@ public interface MyDslPackage extends EPackage
     EReference INIT_DECLARATOR__INITIALIZER = eINSTANCE.getinit_declarator_Initializer();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.string_ufcgImpl <em>string ufcg</em>}' class.
+     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.string_dslImpl <em>string dsl</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.string_ufcgImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getstring_ufcg()
+     * @see org.xtext.example.mydsl.myDsl.impl.string_dslImpl
+     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getstring_dsl()
      * @generated
      */
-    EClass STRING_UFCG = eINSTANCE.getstring_ufcg();
+    EClass STRING_DSL = eINSTANCE.getstring_dsl();
 
     /**
      * The meta object literal for the '<em><b>String literal</b></em>' attribute feature.
@@ -12411,7 +12467,7 @@ public interface MyDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute STRING_UFCG__STRING_LITERAL = eINSTANCE.getstring_ufcg_String_literal();
+    EAttribute STRING_DSL__STRING_LITERAL = eINSTANCE.getstring_dsl_String_literal();
 
     /**
      * The meta object literal for the '<em><b>func </b></em>' attribute feature.
@@ -12419,7 +12475,7 @@ public interface MyDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute STRING_UFCG__FUNC_ = eINSTANCE.getstring_ufcg___func__();
+    EAttribute STRING_DSL__FUNC_ = eINSTANCE.getstring_dsl___func__();
 
     /**
      * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.constantImpl <em>constant</em>}' class.
@@ -12454,6 +12510,14 @@ public interface MyDslPackage extends EPackage
      * @generated
      */
     EAttribute CONSTANT__CHAR = eINSTANCE.getconstant_Char();
+
+    /**
+     * The meta object literal for the '<em><b>String</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONSTANT__STRING = eINSTANCE.getconstant_String();
 
     /**
      * The meta object literal for the '<em><b>Enumz</b></em>' attribute feature.

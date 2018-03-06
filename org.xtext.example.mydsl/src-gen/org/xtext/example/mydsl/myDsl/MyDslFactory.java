@@ -1014,13 +1014,13 @@ public interface MyDslFactory extends EFactory
   init_declarator createinit_declarator();
 
   /**
-   * Returns a new object of class '<em>string ufcg</em>'.
+   * Returns a new object of class '<em>string dsl</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>string ufcg</em>'.
+   * @return a new object of class '<em>string dsl</em>'.
    * @generated
    */
-  string_ufcg createstring_ufcg();
+  string_dsl createstring_dsl();
 
   /**
    * Returns a new object of class '<em>constant</em>'.

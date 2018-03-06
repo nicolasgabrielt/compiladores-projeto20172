@@ -448,14 +448,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//init_declarator/declarator"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//init_declarator/initializer"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//string_ufcg">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//string_ufcg/string_literal"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//string_ufcg/__func__"/>
+    <genClasses ecoreClass="MyDsl.ecore#//string_dsl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//string_dsl/string_literal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//string_dsl/__func__"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//constant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//constant/i_constant"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//constant/f_constant"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//constant/char"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//constant/string"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//constant/enumz"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//EnumeratorListLinhaAction">

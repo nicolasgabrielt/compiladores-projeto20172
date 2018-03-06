@@ -117,7 +117,7 @@ import org.xtext.example.mydsl.myDsl.shift_expression_linha;
 import org.xtext.example.mydsl.myDsl.specifier_qualifier_list;
 import org.xtext.example.mydsl.myDsl.statement;
 import org.xtext.example.mydsl.myDsl.static_assert_declaration;
-import org.xtext.example.mydsl.myDsl.string_ufcg;
+import org.xtext.example.mydsl.myDsl.string_dsl;
 import org.xtext.example.mydsl.myDsl.struct_declaration;
 import org.xtext.example.mydsl.myDsl.struct_declaration_list;
 import org.xtext.example.mydsl.myDsl.struct_declarator;
@@ -451,8 +451,8 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case MyDslPackage.STATIC_ASSERT_DECLARATION:
 				sequence_static_assert_declaration(context, (static_assert_declaration) semanticObject); 
 				return; 
-			case MyDslPackage.STRING_UFCG:
-				sequence_string_ufcg(context, (string_ufcg) semanticObject); 
+			case MyDslPackage.STRING_DSL:
+				sequence_string_dsl(context, (string_dsl) semanticObject); 
 				return; 
 			case MyDslPackage.STRUCT_DECLARATION:
 				sequence_struct_declaration(context, (struct_declaration) semanticObject); 
@@ -805,7 +805,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     constant returns constant
 	 *
 	 * Constraint:
-	 *     (i_constant=INT | f_constant=FLOAT | char=CHAR | enumz='enum')
+	 *     (i_constant=INT | f_constant=FLOAT | char=CHAR | string=STRING | enumz='enum')
 	 */
 	protected void sequence_constant(ISerializationContext context, constant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2118,12 +2118,13 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     string_ufcg returns string_ufcg
+	 *     primary_expression returns string_dsl
+	 *     string_dsl returns string_dsl
 	 *
 	 * Constraint:
 	 *     (string_literal=STRING_LITERAL | __func__='__func__')
 	 */
-	protected void sequence_string_ufcg(ISerializationContext context, string_ufcg semanticObject) {
+	protected void sequence_string_dsl(ISerializationContext context, string_dsl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -2347,6 +2348,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     (
 	 *         type_name_str='void' | 
 	 *         type_name_str='char' | 
+	 *         type_name_str='string' | 
 	 *         type_name_str='short' | 
 	 *         type_name_str='int' | 
 	 *         type_name_str='long' | 

@@ -175,7 +175,7 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
       case MyDslPackage.INIT_DECLARATOR_LIST: return createinit_declarator_list();
       case MyDslPackage.INIT_DECLARATOR_LIST_LINHA: return createinit_declarator_list_linha();
       case MyDslPackage.INIT_DECLARATOR: return createinit_declarator();
-      case MyDslPackage.STRING_UFCG: return createstring_ufcg();
+      case MyDslPackage.STRING_DSL: return createstring_dsl();
       case MyDslPackage.CONSTANT: return createconstant();
       case MyDslPackage.ENUMERATOR_LIST_LINHA_ACTION: return createEnumeratorListLinhaAction();
       case MyDslPackage.STRUCT_OR_UNION_SPECIFIER_COMPLEMENT_ACTION: return createStructOrUnionSpecifierComplementAction();
@@ -1414,10 +1414,10 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public string_ufcg createstring_ufcg()
+  public string_dsl createstring_dsl()
   {
-    string_ufcgImpl string_ufcg = new string_ufcgImpl();
-    return string_ufcg;
+    string_dslImpl string_dsl = new string_dslImpl();
+    return string_dsl;
   }
 
   /**

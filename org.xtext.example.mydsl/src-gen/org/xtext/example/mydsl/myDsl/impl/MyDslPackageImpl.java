@@ -124,7 +124,7 @@ import org.xtext.example.mydsl.myDsl.shift_expression_linha;
 import org.xtext.example.mydsl.myDsl.specifier_qualifier_list;
 import org.xtext.example.mydsl.myDsl.statement;
 import org.xtext.example.mydsl.myDsl.static_assert_declaration;
-import org.xtext.example.mydsl.myDsl.string_ufcg;
+import org.xtext.example.mydsl.myDsl.string_dsl;
 import org.xtext.example.mydsl.myDsl.struct_declaration;
 import org.xtext.example.mydsl.myDsl.struct_declaration_list;
 import org.xtext.example.mydsl.myDsl.struct_declaration_list_linha;
@@ -925,7 +925,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass string_ufcgEClass = null;
+  private EClass string_dslEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -4591,9 +4591,9 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getstring_ufcg()
+  public EClass getstring_dsl()
   {
-    return string_ufcgEClass;
+    return string_dslEClass;
   }
 
   /**
@@ -4601,9 +4601,9 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getstring_ufcg_String_literal()
+  public EAttribute getstring_dsl_String_literal()
   {
-    return (EAttribute)string_ufcgEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)string_dslEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -4611,9 +4611,9 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getstring_ufcg___func__()
+  public EAttribute getstring_dsl___func__()
   {
-    return (EAttribute)string_ufcgEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)string_dslEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -4661,9 +4661,19 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getconstant_Enumz()
+  public EAttribute getconstant_String()
   {
     return (EAttribute)constantEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getconstant_Enumz()
+  {
+    return (EAttribute)constantEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -5623,14 +5633,15 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     createEReference(init_declaratorEClass, INIT_DECLARATOR__DECLARATOR);
     createEReference(init_declaratorEClass, INIT_DECLARATOR__INITIALIZER);
 
-    string_ufcgEClass = createEClass(STRING_UFCG);
-    createEAttribute(string_ufcgEClass, STRING_UFCG__STRING_LITERAL);
-    createEAttribute(string_ufcgEClass, STRING_UFCG__FUNC_);
+    string_dslEClass = createEClass(STRING_DSL);
+    createEAttribute(string_dslEClass, STRING_DSL__STRING_LITERAL);
+    createEAttribute(string_dslEClass, STRING_DSL__FUNC_);
 
     constantEClass = createEClass(CONSTANT);
     createEAttribute(constantEClass, CONSTANT__ICONSTANT);
     createEAttribute(constantEClass, CONSTANT__FCONSTANT);
     createEAttribute(constantEClass, CONSTANT__CHAR);
+    createEAttribute(constantEClass, CONSTANT__STRING);
     createEAttribute(constantEClass, CONSTANT__ENUMZ);
 
     enumeratorListLinhaActionEClass = createEClass(ENUMERATOR_LIST_LINHA_ACTION);
@@ -5729,6 +5740,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     // Add supertypes to classes
     type_qualifier_listEClass.getESuperTypes().add(this.getdirect_abstract_declarator_complement());
     type_nameEClass.getESuperTypes().add(this.getpostfix_expression());
+    string_dslEClass.getESuperTypes().add(this.getprimary_expression());
     enumeratorListLinhaActionEClass.getESuperTypes().add(this.getenumerator_list_linha());
     structOrUnionSpecifierComplementActionEClass.getESuperTypes().add(this.getstruct_or_union_specifier_complement());
     structDeclarationListLinhaActionEClass.getESuperTypes().add(this.getstruct_declaration_list_linha());
@@ -6205,14 +6217,15 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     initEReference(getinit_declarator_Declarator(), this.getdeclarator(), null, "declarator", null, 0, 1, init_declarator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getinit_declarator_Initializer(), this.getinitializer(), null, "initializer", null, 0, 1, init_declarator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(string_ufcgEClass, string_ufcg.class, "string_ufcg", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getstring_ufcg_String_literal(), ecorePackage.getEString(), "string_literal", null, 0, 1, string_ufcg.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getstring_ufcg___func__(), ecorePackage.getEString(), "__func__", null, 0, 1, string_ufcg.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(string_dslEClass, string_dsl.class, "string_dsl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getstring_dsl_String_literal(), ecorePackage.getEString(), "string_literal", null, 0, 1, string_dsl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getstring_dsl___func__(), ecorePackage.getEString(), "__func__", null, 0, 1, string_dsl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantEClass, constant.class, "constant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getconstant_I_constant(), ecorePackage.getEInt(), "i_constant", null, 0, 1, constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getconstant_F_constant(), ecorePackage.getEString(), "f_constant", null, 0, 1, constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getconstant_Char(), ecorePackage.getEString(), "char", null, 0, 1, constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getconstant_String(), ecorePackage.getEString(), "string", null, 0, 1, constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getconstant_Enumz(), ecorePackage.getEString(), "enumz", null, 0, 1, constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(enumeratorListLinhaActionEClass, EnumeratorListLinhaAction.class, "EnumeratorListLinhaAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

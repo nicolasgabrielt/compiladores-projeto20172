@@ -3,26 +3,25 @@
  */
 package org.xtext.example.mydsl.myDsl;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>string ufcg</b></em>'.
+ * A representation of the model object '<em><b>string dsl</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.string_ufcg#getString_literal <em>String literal</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.string_ufcg#get__func__ <em>func </em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.string_dsl#getString_literal <em>String literal</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.string_dsl#get__func__ <em>func </em>}</li>
  * </ul>
  *
- * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getstring_ufcg()
+ * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getstring_dsl()
  * @model
  * @generated
  */
-public interface string_ufcg extends EObject
+public interface string_dsl extends primary_expression
 {
   /**
    * Returns the value of the '<em><b>String literal</b></em>' attribute.
@@ -34,14 +33,14 @@ public interface string_ufcg extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>String literal</em>' attribute.
    * @see #setString_literal(String)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getstring_ufcg_String_literal()
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getstring_dsl_String_literal()
    * @model
    * @generated
    */
   String getString_literal();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.string_ufcg#getString_literal <em>String literal</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.string_dsl#getString_literal <em>String literal</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>String literal</em>' attribute.
@@ -60,14 +59,14 @@ public interface string_ufcg extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>func </em>' attribute.
    * @see #set__func__(String)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getstring_ufcg___func__()
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getstring_dsl___func__()
    * @model
    * @generated
    */
   String get__func__();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.string_ufcg#get__func__ <em>func </em>}' attribute.
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.string_dsl#get__func__ <em>func </em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>func </em>' attribute.
@@ -76,4 +75,4 @@ public interface string_ufcg extends EObject
    */
   void set__func__(String value);
 
-} // string_ufcg
+} // string_dsl

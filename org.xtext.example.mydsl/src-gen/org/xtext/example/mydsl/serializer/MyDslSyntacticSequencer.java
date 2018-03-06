@@ -88,7 +88,7 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ('[' '*' ']') | ('(' ')') | ('[' ']')
+	 *     ('[' '*' ']') | ('[' ']') | ('(' ')')
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) (rule start)

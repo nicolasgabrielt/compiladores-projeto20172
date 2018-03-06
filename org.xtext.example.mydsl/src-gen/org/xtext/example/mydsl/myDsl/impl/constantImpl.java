@@ -24,6 +24,7 @@ import org.xtext.example.mydsl.myDsl.constant;
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.constantImpl#getI_constant <em>Iconstant</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.constantImpl#getF_constant <em>Fconstant</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.constantImpl#getChar <em>Char</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.constantImpl#getString <em>String</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.constantImpl#getEnumz <em>Enumz</em>}</li>
  * </ul>
  *
@@ -90,6 +91,26 @@ public class constantImpl extends MinimalEObjectImpl.Container implements consta
    * @ordered
    */
   protected String char_ = CHAR_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getString() <em>String</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getString()
+   * @generated
+   * @ordered
+   */
+  protected static final String STRING_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getString() <em>String</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getString()
+   * @generated
+   * @ordered
+   */
+  protected String string = STRING_EDEFAULT;
 
   /**
    * The default value of the '{@link #getEnumz() <em>Enumz</em>}' attribute.
@@ -206,6 +227,29 @@ public class constantImpl extends MinimalEObjectImpl.Container implements consta
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getString()
+  {
+    return string;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setString(String newString)
+  {
+    String oldString = string;
+    string = newString;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.CONSTANT__STRING, oldString, string));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getEnumz()
   {
     return enumz;
@@ -240,6 +284,8 @@ public class constantImpl extends MinimalEObjectImpl.Container implements consta
         return getF_constant();
       case MyDslPackage.CONSTANT__CHAR:
         return getChar();
+      case MyDslPackage.CONSTANT__STRING:
+        return getString();
       case MyDslPackage.CONSTANT__ENUMZ:
         return getEnumz();
     }
@@ -264,6 +310,9 @@ public class constantImpl extends MinimalEObjectImpl.Container implements consta
         return;
       case MyDslPackage.CONSTANT__CHAR:
         setChar((String)newValue);
+        return;
+      case MyDslPackage.CONSTANT__STRING:
+        setString((String)newValue);
         return;
       case MyDslPackage.CONSTANT__ENUMZ:
         setEnumz((String)newValue);
@@ -291,6 +340,9 @@ public class constantImpl extends MinimalEObjectImpl.Container implements consta
       case MyDslPackage.CONSTANT__CHAR:
         setChar(CHAR_EDEFAULT);
         return;
+      case MyDslPackage.CONSTANT__STRING:
+        setString(STRING_EDEFAULT);
+        return;
       case MyDslPackage.CONSTANT__ENUMZ:
         setEnumz(ENUMZ_EDEFAULT);
         return;
@@ -314,6 +366,8 @@ public class constantImpl extends MinimalEObjectImpl.Container implements consta
         return FCONSTANT_EDEFAULT == null ? f_constant != null : !FCONSTANT_EDEFAULT.equals(f_constant);
       case MyDslPackage.CONSTANT__CHAR:
         return CHAR_EDEFAULT == null ? char_ != null : !CHAR_EDEFAULT.equals(char_);
+      case MyDslPackage.CONSTANT__STRING:
+        return STRING_EDEFAULT == null ? string != null : !STRING_EDEFAULT.equals(string);
       case MyDslPackage.CONSTANT__ENUMZ:
         return ENUMZ_EDEFAULT == null ? enumz != null : !ENUMZ_EDEFAULT.equals(enumz);
     }
@@ -337,6 +391,8 @@ public class constantImpl extends MinimalEObjectImpl.Container implements consta
     result.append(f_constant);
     result.append(", char: ");
     result.append(char_);
+    result.append(", string: ");
+    result.append(string);
     result.append(", enumz: ");
     result.append(enumz);
     result.append(')');

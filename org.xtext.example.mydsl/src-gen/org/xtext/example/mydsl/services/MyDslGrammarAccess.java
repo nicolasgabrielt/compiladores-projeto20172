@@ -393,37 +393,40 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cType_name_strAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final Keyword cType_name_strCharKeyword_1_0 = (Keyword)cType_name_strAssignment_1.eContents().get(0);
 		private final Assignment cType_name_strAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final Keyword cType_name_strShortKeyword_2_0 = (Keyword)cType_name_strAssignment_2.eContents().get(0);
+		private final Keyword cType_name_strStringKeyword_2_0 = (Keyword)cType_name_strAssignment_2.eContents().get(0);
 		private final Assignment cType_name_strAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final Keyword cType_name_strIntKeyword_3_0 = (Keyword)cType_name_strAssignment_3.eContents().get(0);
+		private final Keyword cType_name_strShortKeyword_3_0 = (Keyword)cType_name_strAssignment_3.eContents().get(0);
 		private final Assignment cType_name_strAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
-		private final Keyword cType_name_strLongKeyword_4_0 = (Keyword)cType_name_strAssignment_4.eContents().get(0);
+		private final Keyword cType_name_strIntKeyword_4_0 = (Keyword)cType_name_strAssignment_4.eContents().get(0);
 		private final Assignment cType_name_strAssignment_5 = (Assignment)cAlternatives.eContents().get(5);
-		private final Keyword cType_name_strFloatKeyword_5_0 = (Keyword)cType_name_strAssignment_5.eContents().get(0);
+		private final Keyword cType_name_strLongKeyword_5_0 = (Keyword)cType_name_strAssignment_5.eContents().get(0);
 		private final Assignment cType_name_strAssignment_6 = (Assignment)cAlternatives.eContents().get(6);
-		private final Keyword cType_name_strDoubleKeyword_6_0 = (Keyword)cType_name_strAssignment_6.eContents().get(0);
+		private final Keyword cType_name_strFloatKeyword_6_0 = (Keyword)cType_name_strAssignment_6.eContents().get(0);
 		private final Assignment cType_name_strAssignment_7 = (Assignment)cAlternatives.eContents().get(7);
-		private final Keyword cType_name_strSignedKeyword_7_0 = (Keyword)cType_name_strAssignment_7.eContents().get(0);
+		private final Keyword cType_name_strDoubleKeyword_7_0 = (Keyword)cType_name_strAssignment_7.eContents().get(0);
 		private final Assignment cType_name_strAssignment_8 = (Assignment)cAlternatives.eContents().get(8);
-		private final Keyword cType_name_strUnsignedKeyword_8_0 = (Keyword)cType_name_strAssignment_8.eContents().get(0);
+		private final Keyword cType_name_strSignedKeyword_8_0 = (Keyword)cType_name_strAssignment_8.eContents().get(0);
 		private final Assignment cType_name_strAssignment_9 = (Assignment)cAlternatives.eContents().get(9);
-		private final Keyword cType_name_strBoolKeyword_9_0 = (Keyword)cType_name_strAssignment_9.eContents().get(0);
+		private final Keyword cType_name_strUnsignedKeyword_9_0 = (Keyword)cType_name_strAssignment_9.eContents().get(0);
 		private final Assignment cType_name_strAssignment_10 = (Assignment)cAlternatives.eContents().get(10);
-		private final Keyword cType_name_str_ComplexKeyword_10_0 = (Keyword)cType_name_strAssignment_10.eContents().get(0);
+		private final Keyword cType_name_strBoolKeyword_10_0 = (Keyword)cType_name_strAssignment_10.eContents().get(0);
 		private final Assignment cType_name_strAssignment_11 = (Assignment)cAlternatives.eContents().get(11);
-		private final Keyword cType_name_str_ImaginaryKeyword_11_0 = (Keyword)cType_name_strAssignment_11.eContents().get(0);
-		private final Assignment cAtomic_type_specifierAssignment_12 = (Assignment)cAlternatives.eContents().get(12);
-		private final RuleCall cAtomic_type_specifierAtomic_type_specifierParserRuleCall_12_0 = (RuleCall)cAtomic_type_specifierAssignment_12.eContents().get(0);
-		private final Assignment cStruct_or_union_specifierAssignment_13 = (Assignment)cAlternatives.eContents().get(13);
-		private final RuleCall cStruct_or_union_specifierStruct_or_union_specifierParserRuleCall_13_0 = (RuleCall)cStruct_or_union_specifierAssignment_13.eContents().get(0);
-		private final Assignment cEnum_specifierAssignment_14 = (Assignment)cAlternatives.eContents().get(14);
-		private final RuleCall cEnum_specifierEnum_specifierParserRuleCall_14_0 = (RuleCall)cEnum_specifierAssignment_14.eContents().get(0);
-		private final Assignment cType_name_strAssignment_15 = (Assignment)cAlternatives.eContents().get(15);
-		private final Keyword cType_name_strTypedefKeyword_15_0 = (Keyword)cType_name_strAssignment_15.eContents().get(0);
+		private final Keyword cType_name_str_ComplexKeyword_11_0 = (Keyword)cType_name_strAssignment_11.eContents().get(0);
+		private final Assignment cType_name_strAssignment_12 = (Assignment)cAlternatives.eContents().get(12);
+		private final Keyword cType_name_str_ImaginaryKeyword_12_0 = (Keyword)cType_name_strAssignment_12.eContents().get(0);
+		private final Assignment cAtomic_type_specifierAssignment_13 = (Assignment)cAlternatives.eContents().get(13);
+		private final RuleCall cAtomic_type_specifierAtomic_type_specifierParserRuleCall_13_0 = (RuleCall)cAtomic_type_specifierAssignment_13.eContents().get(0);
+		private final Assignment cStruct_or_union_specifierAssignment_14 = (Assignment)cAlternatives.eContents().get(14);
+		private final RuleCall cStruct_or_union_specifierStruct_or_union_specifierParserRuleCall_14_0 = (RuleCall)cStruct_or_union_specifierAssignment_14.eContents().get(0);
+		private final Assignment cEnum_specifierAssignment_15 = (Assignment)cAlternatives.eContents().get(15);
+		private final RuleCall cEnum_specifierEnum_specifierParserRuleCall_15_0 = (RuleCall)cEnum_specifierAssignment_15.eContents().get(0);
+		private final Assignment cType_name_strAssignment_16 = (Assignment)cAlternatives.eContents().get(16);
+		private final Keyword cType_name_strTypedefKeyword_16_0 = (Keyword)cType_name_strAssignment_16.eContents().get(0);
 		
 		//type_specifier:
 		//	type_name_str='void'
 		//	| type_name_str='char'
+		//	| type_name_str='string'
 		//	| type_name_str='short'
 		//	| type_name_str='int'
 		//	| type_name_str='long'
@@ -440,11 +443,11 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| type_name_str='typedef' /* after it has been defined as such */;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//type_name_str='void' | type_name_str='char' | type_name_str='short' | type_name_str='int' | type_name_str='long' |
-		//type_name_str='float' | type_name_str='double' | type_name_str='signed' | type_name_str='unsigned' |
-		//type_name_str='bool' | type_name_str='_Complex' | type_name_str='_Imaginary' /* non-mandated extension */ |
-		//atomic_type_specifier=atomic_type_specifier | struct_or_union_specifier=struct_or_union_specifier |
-		//enum_specifier=enum_specifier | type_name_str='typedef'
+		//type_name_str='void' | type_name_str='char' | type_name_str='string' | type_name_str='short' | type_name_str='int' |
+		//type_name_str='long' | type_name_str='float' | type_name_str='double' | type_name_str='signed' |
+		//type_name_str='unsigned' | type_name_str='bool' | type_name_str='_Complex' | type_name_str='_Imaginary'
+		///* non-mandated extension */ | atomic_type_specifier=atomic_type_specifier |
+		//struct_or_union_specifier=struct_or_union_specifier | enum_specifier=enum_specifier | type_name_str='typedef'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//type_name_str='void'
@@ -459,89 +462,95 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//'char'
 		public Keyword getType_name_strCharKeyword_1_0() { return cType_name_strCharKeyword_1_0; }
 		
-		//type_name_str='short'
+		//type_name_str='string'
 		public Assignment getType_name_strAssignment_2() { return cType_name_strAssignment_2; }
 		
-		//'short'
-		public Keyword getType_name_strShortKeyword_2_0() { return cType_name_strShortKeyword_2_0; }
+		//'string'
+		public Keyword getType_name_strStringKeyword_2_0() { return cType_name_strStringKeyword_2_0; }
 		
-		//type_name_str='int'
+		//type_name_str='short'
 		public Assignment getType_name_strAssignment_3() { return cType_name_strAssignment_3; }
 		
-		//'int'
-		public Keyword getType_name_strIntKeyword_3_0() { return cType_name_strIntKeyword_3_0; }
+		//'short'
+		public Keyword getType_name_strShortKeyword_3_0() { return cType_name_strShortKeyword_3_0; }
 		
-		//type_name_str='long'
+		//type_name_str='int'
 		public Assignment getType_name_strAssignment_4() { return cType_name_strAssignment_4; }
 		
-		//'long'
-		public Keyword getType_name_strLongKeyword_4_0() { return cType_name_strLongKeyword_4_0; }
+		//'int'
+		public Keyword getType_name_strIntKeyword_4_0() { return cType_name_strIntKeyword_4_0; }
 		
-		//type_name_str='float'
+		//type_name_str='long'
 		public Assignment getType_name_strAssignment_5() { return cType_name_strAssignment_5; }
 		
-		//'float'
-		public Keyword getType_name_strFloatKeyword_5_0() { return cType_name_strFloatKeyword_5_0; }
+		//'long'
+		public Keyword getType_name_strLongKeyword_5_0() { return cType_name_strLongKeyword_5_0; }
 		
-		//type_name_str='double'
+		//type_name_str='float'
 		public Assignment getType_name_strAssignment_6() { return cType_name_strAssignment_6; }
 		
-		//'double'
-		public Keyword getType_name_strDoubleKeyword_6_0() { return cType_name_strDoubleKeyword_6_0; }
+		//'float'
+		public Keyword getType_name_strFloatKeyword_6_0() { return cType_name_strFloatKeyword_6_0; }
 		
-		//type_name_str='signed'
+		//type_name_str='double'
 		public Assignment getType_name_strAssignment_7() { return cType_name_strAssignment_7; }
 		
-		//'signed'
-		public Keyword getType_name_strSignedKeyword_7_0() { return cType_name_strSignedKeyword_7_0; }
+		//'double'
+		public Keyword getType_name_strDoubleKeyword_7_0() { return cType_name_strDoubleKeyword_7_0; }
 		
-		//type_name_str='unsigned'
+		//type_name_str='signed'
 		public Assignment getType_name_strAssignment_8() { return cType_name_strAssignment_8; }
 		
-		//'unsigned'
-		public Keyword getType_name_strUnsignedKeyword_8_0() { return cType_name_strUnsignedKeyword_8_0; }
+		//'signed'
+		public Keyword getType_name_strSignedKeyword_8_0() { return cType_name_strSignedKeyword_8_0; }
 		
-		//type_name_str='bool'
+		//type_name_str='unsigned'
 		public Assignment getType_name_strAssignment_9() { return cType_name_strAssignment_9; }
 		
-		//'bool'
-		public Keyword getType_name_strBoolKeyword_9_0() { return cType_name_strBoolKeyword_9_0; }
+		//'unsigned'
+		public Keyword getType_name_strUnsignedKeyword_9_0() { return cType_name_strUnsignedKeyword_9_0; }
 		
-		//type_name_str='_Complex'
+		//type_name_str='bool'
 		public Assignment getType_name_strAssignment_10() { return cType_name_strAssignment_10; }
 		
-		//'_Complex'
-		public Keyword getType_name_str_ComplexKeyword_10_0() { return cType_name_str_ComplexKeyword_10_0; }
+		//'bool'
+		public Keyword getType_name_strBoolKeyword_10_0() { return cType_name_strBoolKeyword_10_0; }
 		
-		//type_name_str='_Imaginary'
+		//type_name_str='_Complex'
 		public Assignment getType_name_strAssignment_11() { return cType_name_strAssignment_11; }
 		
+		//'_Complex'
+		public Keyword getType_name_str_ComplexKeyword_11_0() { return cType_name_str_ComplexKeyword_11_0; }
+		
+		//type_name_str='_Imaginary'
+		public Assignment getType_name_strAssignment_12() { return cType_name_strAssignment_12; }
+		
 		//'_Imaginary'
-		public Keyword getType_name_str_ImaginaryKeyword_11_0() { return cType_name_str_ImaginaryKeyword_11_0; }
+		public Keyword getType_name_str_ImaginaryKeyword_12_0() { return cType_name_str_ImaginaryKeyword_12_0; }
 		
 		//atomic_type_specifier=atomic_type_specifier
-		public Assignment getAtomic_type_specifierAssignment_12() { return cAtomic_type_specifierAssignment_12; }
+		public Assignment getAtomic_type_specifierAssignment_13() { return cAtomic_type_specifierAssignment_13; }
 		
 		//atomic_type_specifier
-		public RuleCall getAtomic_type_specifierAtomic_type_specifierParserRuleCall_12_0() { return cAtomic_type_specifierAtomic_type_specifierParserRuleCall_12_0; }
+		public RuleCall getAtomic_type_specifierAtomic_type_specifierParserRuleCall_13_0() { return cAtomic_type_specifierAtomic_type_specifierParserRuleCall_13_0; }
 		
 		//struct_or_union_specifier=struct_or_union_specifier
-		public Assignment getStruct_or_union_specifierAssignment_13() { return cStruct_or_union_specifierAssignment_13; }
+		public Assignment getStruct_or_union_specifierAssignment_14() { return cStruct_or_union_specifierAssignment_14; }
 		
 		//struct_or_union_specifier
-		public RuleCall getStruct_or_union_specifierStruct_or_union_specifierParserRuleCall_13_0() { return cStruct_or_union_specifierStruct_or_union_specifierParserRuleCall_13_0; }
+		public RuleCall getStruct_or_union_specifierStruct_or_union_specifierParserRuleCall_14_0() { return cStruct_or_union_specifierStruct_or_union_specifierParserRuleCall_14_0; }
 		
 		//enum_specifier=enum_specifier
-		public Assignment getEnum_specifierAssignment_14() { return cEnum_specifierAssignment_14; }
+		public Assignment getEnum_specifierAssignment_15() { return cEnum_specifierAssignment_15; }
 		
 		//enum_specifier
-		public RuleCall getEnum_specifierEnum_specifierParserRuleCall_14_0() { return cEnum_specifierEnum_specifierParserRuleCall_14_0; }
+		public RuleCall getEnum_specifierEnum_specifierParserRuleCall_15_0() { return cEnum_specifierEnum_specifierParserRuleCall_15_0; }
 		
 		//type_name_str='typedef'
-		public Assignment getType_name_strAssignment_15() { return cType_name_strAssignment_15; }
+		public Assignment getType_name_strAssignment_16() { return cType_name_strAssignment_16; }
 		
 		//'typedef'
-		public Keyword getType_name_strTypedefKeyword_15_0() { return cType_name_strTypedefKeyword_15_0; }
+		public Keyword getType_name_strTypedefKeyword_16_0() { return cType_name_strTypedefKeyword_16_0; }
 	}
 	public class Enum_specifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.enum_specifier");
@@ -3036,22 +3045,24 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIdentifierIDzTerminalRuleCall_0_0 = (RuleCall)cIdentifierAssignment_0.eContents().get(0);
 		private final Assignment cConstantAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cConstantConstantParserRuleCall_1_0 = (RuleCall)cConstantAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
-		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cExpressionAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cExpressionExpressionParserRuleCall_2_1_0 = (RuleCall)cExpressionAssignment_2_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
-		private final Assignment cGeneric_selectionAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final RuleCall cGeneric_selectionGeneric_selectionParserRuleCall_3_0 = (RuleCall)cGeneric_selectionAssignment_3.eContents().get(0);
+		private final RuleCall cString_dslParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
+		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cExpressionAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cExpressionExpressionParserRuleCall_3_1_0 = (RuleCall)cExpressionAssignment_3_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Assignment cGeneric_selectionAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
+		private final RuleCall cGeneric_selectionGeneric_selectionParserRuleCall_4_0 = (RuleCall)cGeneric_selectionAssignment_4.eContents().get(0);
 		
 		//primary_expression:
 		//	identifier=IDz
 		//	| constant=constant
+		//	| string_dsl
 		//	| '(' expression=expression ')'
 		//	| generic_selection=generic_selection;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//identifier=IDz | constant=constant | '(' expression=expression ')' | generic_selection=generic_selection
+		//identifier=IDz | constant=constant | string_dsl | '(' expression=expression ')' | generic_selection=generic_selection
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//identifier=IDz
@@ -3066,26 +3077,29 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//constant
 		public RuleCall getConstantConstantParserRuleCall_1_0() { return cConstantConstantParserRuleCall_1_0; }
 		
+		//string_dsl
+		public RuleCall getString_dslParserRuleCall_2() { return cString_dslParserRuleCall_2; }
+		
 		//'(' expression=expression ')'
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_3() { return cGroup_3; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
+		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
 		
 		//expression=expression
-		public Assignment getExpressionAssignment_2_1() { return cExpressionAssignment_2_1; }
+		public Assignment getExpressionAssignment_3_1() { return cExpressionAssignment_3_1; }
 		
 		//expression
-		public RuleCall getExpressionExpressionParserRuleCall_2_1_0() { return cExpressionExpressionParserRuleCall_2_1_0; }
+		public RuleCall getExpressionExpressionParserRuleCall_3_1_0() { return cExpressionExpressionParserRuleCall_3_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
+		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
 		
 		//generic_selection=generic_selection
-		public Assignment getGeneric_selectionAssignment_3() { return cGeneric_selectionAssignment_3; }
+		public Assignment getGeneric_selectionAssignment_4() { return cGeneric_selectionAssignment_4; }
 		
 		//generic_selection
-		public RuleCall getGeneric_selectionGeneric_selectionParserRuleCall_3_0() { return cGeneric_selectionGeneric_selectionParserRuleCall_3_0; }
+		public RuleCall getGeneric_selectionGeneric_selectionParserRuleCall_4_0() { return cGeneric_selectionGeneric_selectionParserRuleCall_4_0; }
 	}
 	public class Enumeration_constantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.enumeration_constant");
@@ -6387,15 +6401,15 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//declarator
 		public RuleCall getDeclaratorDeclaratorParserRuleCall_1_0() { return cDeclaratorDeclaratorParserRuleCall_1_0; }
 	}
-	public class String_ufcgElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.string_ufcg");
+	public class String_dslElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.string_dsl");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Assignment cString_literalAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final RuleCall cString_literalSTRING_LITERALTerminalRuleCall_0_0 = (RuleCall)cString_literalAssignment_0.eContents().get(0);
 		private final Assignment c__func__Assignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final Keyword c__func____func__Keyword_1_0 = (Keyword)c__func__Assignment_1.eContents().get(0);
 		
-		//string_ufcg:
+		//string_dsl:
 		//	string_literal=STRING_LITERAL
 		//	| __func__='__func__';
 		@Override public ParserRule getRule() { return rule; }
@@ -6424,17 +6438,20 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cF_constantFLOATTerminalRuleCall_1_0 = (RuleCall)cF_constantAssignment_1.eContents().get(0);
 		private final Assignment cCharAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final RuleCall cCharCHARTerminalRuleCall_2_0 = (RuleCall)cCharAssignment_2.eContents().get(0);
-		private final Assignment cEnumzAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final Keyword cEnumzEnumKeyword_3_0 = (Keyword)cEnumzAssignment_3.eContents().get(0);
+		private final Assignment cStringAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final RuleCall cStringSTRINGTerminalRuleCall_3_0 = (RuleCall)cStringAssignment_3.eContents().get(0);
+		private final Assignment cEnumzAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
+		private final Keyword cEnumzEnumKeyword_4_0 = (Keyword)cEnumzAssignment_4.eContents().get(0);
 		
 		//constant:
 		//	i_constant=INT /* includes character_constant */
 		//	| f_constant=FLOAT
 		//	| char=CHAR
+		//	| string=STRING
 		//	| enumz='enum' /* after it has been defined as such */;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//i_constant=INT /* includes character_constant */ | f_constant=FLOAT | char=CHAR | enumz='enum'
+		//i_constant=INT /* includes character_constant */ | f_constant=FLOAT | char=CHAR | string=STRING | enumz='enum'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//i_constant=INT
@@ -6455,11 +6472,17 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//CHAR
 		public RuleCall getCharCHARTerminalRuleCall_2_0() { return cCharCHARTerminalRuleCall_2_0; }
 		
+		//string=STRING
+		public Assignment getStringAssignment_3() { return cStringAssignment_3; }
+		
+		//STRING
+		public RuleCall getStringSTRINGTerminalRuleCall_3_0() { return cStringSTRINGTerminalRuleCall_3_0; }
+		
 		//enumz='enum'
-		public Assignment getEnumzAssignment_3() { return cEnumzAssignment_3; }
+		public Assignment getEnumzAssignment_4() { return cEnumzAssignment_4; }
 		
 		//'enum'
-		public Keyword getEnumzEnumKeyword_3_0() { return cEnumzEnumKeyword_3_0; }
+		public Keyword getEnumzEnumKeyword_4_0() { return cEnumzEnumKeyword_4_0; }
 	}
 	
 	
@@ -6578,7 +6601,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	private final Init_declarator_listElements pInit_declarator_list;
 	private final Init_declarator_list_linhaElements pInit_declarator_list_linha;
 	private final Init_declaratorElements pInit_declarator;
-	private final String_ufcgElements pString_ufcg;
+	private final String_dslElements pString_dsl;
 	private final ConstantElements pConstant;
 	private final TerminalRule tIDz;
 	private final TerminalRule tCHAR;
@@ -6725,7 +6748,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pInit_declarator_list = new Init_declarator_listElements();
 		this.pInit_declarator_list_linha = new Init_declarator_list_linhaElements();
 		this.pInit_declarator = new Init_declaratorElements();
-		this.pString_ufcg = new String_ufcgElements();
+		this.pString_dsl = new String_dslElements();
 		this.pConstant = new ConstantElements();
 		this.tIDz = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.IDz");
 		this.tCHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.CHAR");
@@ -6864,6 +6887,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	//type_specifier:
 	//	type_name_str='void'
 	//	| type_name_str='char'
+	//	| type_name_str='string'
 	//	| type_name_str='short'
 	//	| type_name_str='int'
 	//	| type_name_str='long'
@@ -7349,6 +7373,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	//primary_expression:
 	//	identifier=IDz
 	//	| constant=constant
+	//	| string_dsl
 	//	| '(' expression=expression ')'
 	//	| generic_selection=generic_selection;
 	public Primary_expressionElements getPrimary_expressionAccess() {
@@ -8111,21 +8136,22 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getInit_declaratorAccess().getRule();
 	}
 	
-	//string_ufcg:
+	//string_dsl:
 	//	string_literal=STRING_LITERAL
 	//	| __func__='__func__';
-	public String_ufcgElements getString_ufcgAccess() {
-		return pString_ufcg;
+	public String_dslElements getString_dslAccess() {
+		return pString_dsl;
 	}
 	
-	public ParserRule getString_ufcgRule() {
-		return getString_ufcgAccess().getRule();
+	public ParserRule getString_dslRule() {
+		return getString_dslAccess().getRule();
 	}
 	
 	//constant:
 	//	i_constant=INT /* includes character_constant */
 	//	| f_constant=FLOAT
 	//	| char=CHAR
+	//	| string=STRING
 	//	| enumz='enum' /* after it has been defined as such */;
 	public ConstantElements getConstantAccess() {
 		return pConstant;

@@ -47,6 +47,7 @@ type_qualifier
 type_specifier
 	: type_name_str='void'
 	| type_name_str='char'
+	| type_name_str='string'
 	| type_name_str='short'
 	| type_name_str='int'
 	| type_name_str='long'
@@ -289,6 +290,7 @@ translation_unit_linha:
 primary_expression:
 	identifier=IDz
 	| constant=constant
+	| string_dsl
 	| '(' expression=expression ')'
 	| generic_selection=generic_selection;
 
@@ -649,15 +651,16 @@ init_declarator
 	| declarator=declarator
 	;
 
-string_ufcg
+string_dsl
 	: string_literal=STRING_LITERAL
-	| __func__='__func__';
-
+	| __func__='__func__'
+;
 
 constant
 	: i_constant=INT	/* includes character_constant */
 	| f_constant=FLOAT
 	| char=CHAR
+	| string=STRING
 	| enumz='enum'	/* after it has been defined as such */
 	;
 

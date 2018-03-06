@@ -97,6 +97,8 @@ ruletype_specifier:
 		    |
 		'char'
 		    |
+		'string'
+		    |
 		'short'
 		    |
 		'int'
@@ -687,6 +689,8 @@ ruleprimary_expression:
 		RULE_IDZ
 		    |
 		ruleconstant
+		    |
+		rulestring_dsl
 		    |
 		'('
 		ruleexpression
@@ -1432,6 +1436,15 @@ ruleinit_declarator:
 	)
 ;
 
+// Rule string_dsl
+rulestring_dsl:
+	(
+		RULE_STRING_LITERAL
+		    |
+		'__func__'
+	)
+;
+
 // Rule constant
 ruleconstant:
 	(
@@ -1440,6 +1453,8 @@ ruleconstant:
 		RULE_FLOAT
 		    |
 		RULE_CHAR
+		    |
+		RULE_STRING
 		    |
 		'enum'
 	)

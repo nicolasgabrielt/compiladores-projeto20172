@@ -845,10 +845,11 @@ public class MyDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.STRING_UFCG:
+      case MyDslPackage.STRING_DSL:
       {
-        string_ufcg string_ufcg = (string_ufcg)theEObject;
-        T result = casestring_ufcg(string_ufcg);
+        string_dsl string_dsl = (string_dsl)theEObject;
+        T result = casestring_dsl(string_dsl);
+        if (result == null) result = caseprimary_expression(string_dsl);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -2760,17 +2761,17 @@ public class MyDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>string ufcg</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>string dsl</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>string ufcg</em>'.
+   * @return the result of interpreting the object as an instance of '<em>string dsl</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casestring_ufcg(string_ufcg object)
+  public T casestring_dsl(string_dsl object)
   {
     return null;
   }

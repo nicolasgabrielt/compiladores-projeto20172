@@ -626,9 +626,9 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
         return createinit_declaratorAdapter();
       }
       @Override
-      public Adapter casestring_ufcg(string_ufcg object)
+      public Adapter casestring_dsl(string_dsl object)
       {
-        return createstring_ufcgAdapter();
+        return createstring_dslAdapter();
       }
       @Override
       public Adapter caseconstant(constant object)
@@ -2393,16 +2393,16 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.string_ufcg <em>string ufcg</em>}'.
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.string_dsl <em>string dsl</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.string_ufcg
+   * @see org.xtext.example.mydsl.myDsl.string_dsl
    * @generated
    */
-  public Adapter createstring_ufcgAdapter()
+  public Adapter createstring_dslAdapter()
   {
     return null;
   }
