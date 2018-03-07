@@ -7,36 +7,49 @@ import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.xtext.example.mydsl.myDsl.Model;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
+import org.xtext.example.mydsl.myDsl.PostFixEmpryParams;
 import org.xtext.example.mydsl.myDsl.additive_expression;
 import org.xtext.example.mydsl.myDsl.additive_expression_linha;
 import org.xtext.example.mydsl.myDsl.and_expression;
 import org.xtext.example.mydsl.myDsl.and_expression_linha;
 import org.xtext.example.mydsl.myDsl.assignment_expression;
+import org.xtext.example.mydsl.myDsl.block_item_list;
+import org.xtext.example.mydsl.myDsl.block_item_list_linha;
+import org.xtext.example.mydsl.myDsl.compound_statement;
 import org.xtext.example.mydsl.myDsl.conditional_expression;
 import org.xtext.example.mydsl.myDsl.conditional_expression_linha;
 import org.xtext.example.mydsl.myDsl.constant;
 import org.xtext.example.mydsl.myDsl.declaration;
+import org.xtext.example.mydsl.myDsl.direct_declarator_complemento;
 import org.xtext.example.mydsl.myDsl.equality_expression;
 import org.xtext.example.mydsl.myDsl.equality_expression_linha;
 import org.xtext.example.mydsl.myDsl.exclusive_or_expression;
 import org.xtext.example.mydsl.myDsl.exclusive_or_expression_linha;
 import org.xtext.example.mydsl.myDsl.expression;
+import org.xtext.example.mydsl.myDsl.function_definition;
 import org.xtext.example.mydsl.myDsl.inclusive_or_expression;
 import org.xtext.example.mydsl.myDsl.inclusive_or_expression_linha;
+import org.xtext.example.mydsl.myDsl.jump_statement;
 import org.xtext.example.mydsl.myDsl.logical_and_expression;
 import org.xtext.example.mydsl.myDsl.logical_and_expression_linha;
 import org.xtext.example.mydsl.myDsl.logical_or_expression;
 import org.xtext.example.mydsl.myDsl.logical_or_expression_linha;
 import org.xtext.example.mydsl.myDsl.multiplicative_expression;
 import org.xtext.example.mydsl.myDsl.multiplicative_expression_linha;
+import org.xtext.example.mydsl.myDsl.parameter_declaration;
+import org.xtext.example.mydsl.myDsl.postfix_expression;
+import org.xtext.example.mydsl.myDsl.postfix_expression_complement;
 import org.xtext.example.mydsl.myDsl.primary_expression;
 import org.xtext.example.mydsl.myDsl.relational_expression;
 import org.xtext.example.mydsl.myDsl.relational_expression_linha;
+import org.xtext.example.mydsl.myDsl.selection_statement;
 import org.xtext.example.mydsl.myDsl.shift_expression;
 import org.xtext.example.mydsl.myDsl.shift_expression_linha;
 import org.xtext.example.mydsl.validation.AbstractMyDslValidator;
@@ -80,8 +93,9 @@ public class MyDslValidator extends AbstractMyDslValidator {
   private HashMap<String, String> variables = CollectionLiterals.<String, String>newHashMap();
   
   public void checkDeclarationWithConstant(final String leftType, final primary_expression rightType) {
-    if (((Objects.equal(rightType.getConstant().getF_constant(), null) && Objects.equal(rightType.getConstant().getEnumz(), null)) && Objects.equal(rightType.getConstant().getChar(), null))) {
-      if (((Objects.equal(leftType, "char") || Objects.equal(leftType, "bool")) || Objects.equal(leftType, "void"))) {
+    if ((((Objects.equal(rightType.getConstant().getF_constant(), null) && Objects.equal(rightType.getConstant().getEnumz(), null)) && Objects.equal(rightType.getConstant().getChar(), null)) && Objects.equal(rightType.getConstant().getString(), null))) {
+      System.out.println("RT -> null");
+      if ((((Objects.equal(leftType, "char") || Objects.equal(leftType, "bool")) || Objects.equal(leftType, "void")) || Objects.equal(leftType, "string"))) {
         this.error("Esse tipo não recebe valores numéricos", 
           MyDslPackage.Literals.DECLARATION__DECLARATION_SPECIFIERS);
       }
@@ -89,7 +103,8 @@ public class MyDslValidator extends AbstractMyDslValidator {
       String _f_constant = rightType.getConstant().getF_constant();
       boolean _notEquals = (!Objects.equal(_f_constant, null));
       if (_notEquals) {
-        if ((((Objects.equal(leftType, "char") || Objects.equal(leftType, "bool")) || Objects.equal(leftType, "void")) || Objects.equal(leftType, "int"))) {
+        System.out.println("RT -> Float");
+        if (((((Objects.equal(leftType, "char") || Objects.equal(leftType, "bool")) || Objects.equal(leftType, "void")) || Objects.equal(leftType, "int")) || Objects.equal(leftType, "string"))) {
           this.error("Esse tipo não recebe valores numéricos com ponto flutuante", 
             MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
         }
@@ -97,9 +112,18 @@ public class MyDslValidator extends AbstractMyDslValidator {
         String _char = rightType.getConstant().getChar();
         boolean _notEquals_1 = (!Objects.equal(_char, null));
         if (_notEquals_1) {
-          boolean _notEquals_2 = (!Objects.equal(leftType, "char"));
-          if (_notEquals_2) {
+          System.out.println("RT -> Char");
+          if ((Objects.equal(leftType, "int") || Objects.equal(leftType, "float"))) {
             this.error("Esse tipo não recebe char", MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
+          }
+        } else {
+          String _string = rightType.getConstant().getString();
+          boolean _notEquals_2 = (!Objects.equal(_string, null));
+          if (_notEquals_2) {
+            System.out.println("RT -> String");
+            if (((Objects.equal(leftType, "int") || Objects.equal(leftType, "float")) || Objects.equal(leftType, "char"))) {
+              this.error("Esse tipo não recebe string", MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
+            }
           }
         }
       }
@@ -124,7 +148,7 @@ public class MyDslValidator extends AbstractMyDslValidator {
           decl.getInit_declarator_list().get(0).getInit_declarator().getInitializer().getAssignment_expression());
         boolean _equals = Objects.equal(expType, MyDslValidator.ExpRetType.NUMERIC);
         if (_equals) {
-          if ((Objects.equal(leftType, "bool") || Objects.equal(leftType, "char"))) {
+          if (((Objects.equal(leftType, "bool") || Objects.equal(leftType, "char")) || Objects.equal(leftType, "string"))) {
             this.error(
               "Tipos incompativeis para atribuição", 
               MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
@@ -137,6 +161,15 @@ public class MyDslValidator extends AbstractMyDslValidator {
               this.error(
                 "Não é possível atribuir retorno booleano para o tipo declarado", 
                 MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
+            }
+          } else {
+            boolean _equals_2 = Objects.equal(expType, MyDslValidator.ExpRetType.STRING);
+            if (_equals_2) {
+              System.out.println("expType -> String");
+              if (((Objects.equal(leftType, "float") || Objects.equal(leftType, "int")) || Objects.equal(leftType, "char"))) {
+                this.error("Esse tipo não recebe string", 
+                  MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
+              }
             }
           }
         }
@@ -270,5 +303,370 @@ public class MyDslValidator extends AbstractMyDslValidator {
       return MyDslValidator.ExpRetType.NUMERIC;
     }
     return null;
+  }
+  
+  @Check
+  public void checkBlockItemList(final block_item_list item) {
+    boolean _isEmpty = item.getBlock_item_list_linha().isEmpty();
+    if (_isEmpty) {
+      EObject current = item.eContainer();
+      while (((!Objects.equal(current, null)) && (!((current instanceof function_definition) || (current instanceof selection_statement))))) {
+        current = current.eContainer();
+      }
+      if ((current instanceof function_definition)) {
+        InputOutput.<String>println("Achou funcao...");
+        function_definition func = ((function_definition) current);
+        String retType = func.getDeclaration_specifiers().get(0).getType_specifier().getType_name_str();
+        boolean _notEquals = (!Objects.equal(retType, "void"));
+        if (_notEquals) {
+          if (((Objects.equal(item.getBlock_item().getStatement(), null) || Objects.equal(item.getBlock_item().getStatement().getJump_statement(), null)) || Objects.equal(item.getBlock_item().getStatement().getJump_statement().getExpression(), null))) {
+            this.error("Falta o return", null);
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkBlockItemListLinha(final block_item_list_linha item) {
+    InputOutput.<String>println("Sem instancia...");
+    boolean _isEmpty = item.getBlock_item_list_linha().isEmpty();
+    if (_isEmpty) {
+      InputOutput.<String>println("Iniciando checagem...");
+      EObject current = item.eContainer();
+      while (((!Objects.equal(current, null)) && (!((current instanceof function_definition) || (current instanceof selection_statement))))) {
+        current = current.eContainer();
+      }
+      InputOutput.<String>println("Achou funcao...");
+      if ((current instanceof function_definition)) {
+        InputOutput.<String>println("Achou funcao2...");
+        function_definition func = ((function_definition) current);
+        String retType = func.getDeclaration_specifiers().get(0).getType_specifier().getType_name_str();
+        boolean _notEquals = (!Objects.equal(retType, "void"));
+        if (_notEquals) {
+          if (((Objects.equal(item.getBlock_item().getStatement(), null) || Objects.equal(item.getBlock_item().getStatement().getJump_statement(), null)) || Objects.equal(item.getBlock_item().getStatement().getJump_statement().getExpression(), null))) {
+            this.error("Falta o return", null);
+          }
+        }
+      }
+    }
+  }
+  
+  public primary_expression primaryExpFromAssigExp(final assignment_expression exp) {
+    primary_expression ret = exp.getConditional_expression().getLogical_or_expression().getLogical_and_expression().getInclusive_or_expression().getExclusive_or_expression().getAnd_expression().getEquality_expression().getRelational_expression().getShift_expression().getAdditive_expression().getMultiplicative_expression().getCast_expression().getUnary_expression().getPostfix_expression().getPrimary_expression();
+    return ret;
+  }
+  
+  @Check
+  public String checkFunctionCall(final postfix_expression_complement call) {
+    String _xblockexpression = null;
+    {
+      EObject _eContainer = call.eContainer().eContainer();
+      postfix_expression parent = ((postfix_expression) _eContainer);
+      String name = parent.getPrimary_expression().getIdentifier();
+      String _xifexpression = null;
+      boolean _containsKey = this.functions.containsKey(name);
+      boolean _not = (!_containsKey);
+      if (_not) {
+        this.error("Função não definida", 
+          null);
+      } else {
+        String _xblockexpression_1 = null;
+        {
+          MyDslValidator.Function func = this.functions.get(name);
+          int _size = func.params_types.size();
+          String _plus = ((("Checking params for: " + func.name) + " With: ") + Integer.valueOf(_size));
+          String _plus_1 = (_plus + " params.");
+          InputOutput.<String>println(_plus_1);
+          String _xifexpression_1 = null;
+          int _size_1 = call.getArgument_expression_list().getAssignment_expressions().size();
+          boolean _notEquals = (func.param_number != _size_1);
+          if (_notEquals) {
+            this.error("Numero de parametros incompativeis", 
+              MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST);
+          } else {
+            String _xblockexpression_2 = null;
+            {
+              for (int i = 0; (i < call.getArgument_expression_list().getAssignment_expressions().size()); i++) {
+                {
+                  assignment_expression arg = call.getArgument_expression_list().getAssignment_expressions().get(i);
+                  int _size_2 = call.getArgument_expression_list().getAssignment_expressions().size();
+                  String _plus_2 = ("Size: " + Integer.valueOf(_size_2));
+                  InputOutput.<String>println(_plus_2);
+                  InputOutput.<String>println(("For: " + Integer.valueOf(i)));
+                  String argType = func.params_types.get(i);
+                  MyDslValidator.ExpRetType _expType = MyDslValidator.getExpType(arg);
+                  boolean _notEquals_1 = (!Objects.equal(_expType, null));
+                  if (_notEquals_1) {
+                    InputOutput.<String>println("Is an expression");
+                    MyDslValidator.ExpRetType expRet = MyDslValidator.getExpType(arg);
+                    boolean _equals = Objects.equal(expRet, MyDslValidator.ExpRetType.NUMERIC);
+                    if (_equals) {
+                      boolean _equals_1 = Objects.equal(argType, "bool");
+                      if (_equals_1) {
+                        this.error("Tipo de parametro não compativel", 
+                          MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST);
+                      }
+                    } else {
+                      boolean _equals_2 = Objects.equal(expRet, MyDslValidator.ExpRetType.BOOL);
+                      if (_equals_2) {
+                        boolean _notEquals_2 = (!Objects.equal(argType, "bool"));
+                        if (_notEquals_2) {
+                          this.error("Tipo de parametro não compativel", 
+                            MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST);
+                        }
+                      }
+                    }
+                  } else {
+                    InputOutput.<String>println("Is an contant or id");
+                    primary_expression idOrCons = this.primaryExpFromAssigExp(arg);
+                    InputOutput.<String>println("CP1");
+                    if (((!Objects.equal(idOrCons.getIdentifier(), null)) && (!idOrCons.getIdentifier().trim().isEmpty()))) {
+                      InputOutput.<String>println("CP2");
+                      boolean _containsKey_1 = this.variables.containsKey(idOrCons.getIdentifier());
+                      if (_containsKey_1) {
+                        String _get = this.variables.get(idOrCons.getIdentifier());
+                        boolean _notEquals_3 = (!Objects.equal(_get, argType));
+                        if (_notEquals_3) {
+                          InputOutput.<String>println("CP3");
+                          this.error("Tipo de parametro não compativel", 
+                            MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST);
+                        }
+                      } else {
+                        boolean _containsKey_2 = this.functions.containsKey(idOrCons.getIdentifier());
+                        if (_containsKey_2) {
+                          boolean _notEquals_4 = (!Objects.equal(this.functions.get(idOrCons.getIdentifier()).retType, argType));
+                          if (_notEquals_4) {
+                            this.error("Tipo de parametro não compativel", 
+                              MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST);
+                          }
+                        }
+                      }
+                    }
+                    InputOutput.<String>println("CP4");
+                    if ((((!Objects.equal(idOrCons.getConstant(), null)) && (!Objects.equal(idOrCons.getConstant().getChar(), null))) && (!Objects.equal(argType, "char")))) {
+                      InputOutput.<String>println("CP5");
+                      this.error("Tipo de parametro não com \tpativel", 
+                        MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST);
+                    }
+                    InputOutput.<String>println("CP7");
+                  }
+                  InputOutput.<String>println("End of iteration");
+                }
+              }
+              _xblockexpression_2 = InputOutput.<String>println("For ended");
+            }
+            _xifexpression_1 = _xblockexpression_2;
+          }
+          _xblockexpression_1 = _xifexpression_1;
+        }
+        _xifexpression = _xblockexpression_1;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  @Check
+  public void checkForEmptyParamFunc(final PostFixEmpryParams call) {
+    EObject _eContainer = call.eContainer().eContainer();
+    postfix_expression parent = ((postfix_expression) _eContainer);
+    String name = parent.getPrimary_expression().getIdentifier();
+    boolean _containsKey = this.functions.containsKey(name);
+    boolean _not = (!_containsKey);
+    if (_not) {
+      this.error("Função não definida", 
+        null);
+    } else {
+      MyDslValidator.Function func = this.functions.get(name);
+      if ((func.param_number != 0)) {
+        this.error("Numero de parametros incompativeis", 
+          null);
+      }
+    }
+  }
+  
+  @Check
+  public void validateFunctionReturn(final jump_statement ret) {
+    expression _expression = ret.getExpression();
+    boolean _notEquals = (!Objects.equal(_expression, null));
+    if (_notEquals) {
+      EObject current = ret.eContainer();
+      while (((!Objects.equal(current, null)) && (!(current instanceof function_definition)))) {
+        current = current.eContainer();
+      }
+      if ((current instanceof function_definition)) {
+        function_definition func = ((function_definition) current);
+        String argType = func.getDeclaration_specifiers().get(0).getType_specifier().getType_name_str();
+        boolean _notEquals_1 = (!Objects.equal(argType, "void"));
+        if (_notEquals_1) {
+          assignment_expression arg = ret.getExpression().getAssignment_expression();
+          MyDslValidator.ExpRetType _expType = MyDslValidator.getExpType(arg);
+          boolean _notEquals_2 = (!Objects.equal(_expType, null));
+          if (_notEquals_2) {
+            MyDslValidator.ExpRetType expRet = MyDslValidator.getExpType(arg);
+            boolean _equals = Objects.equal(expRet, MyDslValidator.ExpRetType.NUMERIC);
+            if (_equals) {
+              boolean _equals_1 = Objects.equal(argType, "bool");
+              if (_equals_1) {
+                this.error("Tipo de parametro não compativel", 
+                  null);
+              }
+            } else {
+              boolean _equals_2 = Objects.equal(expRet, MyDslValidator.ExpRetType.BOOL);
+              if (_equals_2) {
+                boolean _notEquals_3 = (!Objects.equal(argType, "bool"));
+                if (_notEquals_3) {
+                  this.error("Tipo de parametro não compativel", 
+                    null);
+                }
+              }
+            }
+          } else {
+            InputOutput.<String>println("Is an contant or id");
+            primary_expression idOrCons = this.primaryExpFromAssigExp(arg);
+            if (((!Objects.equal(idOrCons.getIdentifier(), null)) && (!idOrCons.getIdentifier().trim().isEmpty()))) {
+              boolean _containsKey = this.variables.containsKey(idOrCons.getIdentifier());
+              if (_containsKey) {
+                String _get = this.variables.get(idOrCons.getIdentifier());
+                boolean _notEquals_4 = (!Objects.equal(_get, argType));
+                if (_notEquals_4) {
+                  this.error("Retorno não compatível", 
+                    null);
+                }
+              } else {
+                boolean _containsKey_1 = this.functions.containsKey(idOrCons.getIdentifier());
+                if (_containsKey_1) {
+                  boolean _notEquals_5 = (!Objects.equal(this.functions.get(idOrCons.getIdentifier()).retType, argType));
+                  if (_notEquals_5) {
+                    this.error("Retorno não compatível", 
+                      null);
+                  }
+                }
+              }
+            }
+            if ((((!Objects.equal(idOrCons.getConstant(), null)) && (!Objects.equal(idOrCons.getConstant().getChar(), null))) && (!Objects.equal(argType, "char")))) {
+              this.error("Retorno não compatível", 
+                null);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public MyDslValidator.Function checkFunctionDefinition(final function_definition func_decl) {
+    MyDslValidator.Function _xblockexpression = null;
+    {
+      MyDslValidator.Function f = new MyDslValidator.Function();
+      MyDslValidator.Function _xifexpression = null;
+      direct_declarator_complemento _direct_declarator_complemento = func_decl.getDeclarator().getDirect_declarator().getDirect_declarator_linha().getDirect_declarator_complemento();
+      boolean _equals = Objects.equal(_direct_declarator_complemento, null);
+      if (_equals) {
+        MyDslValidator.Function _xblockexpression_1 = null;
+        {
+          f.retType = func_decl.getDeclaration_specifiers().get(0).getType_specifier().getType_name_str();
+          f.name = func_decl.getDeclarator().getDirect_declarator().getIdentifier().toString();
+          f.param_number = 0;
+          InputOutput.<String>println((("Inserting function... " + f.name) + "With 0 params"));
+          _xblockexpression_1 = this.functions.put(f.name, f);
+        }
+        _xifexpression = _xblockexpression_1;
+      } else {
+        MyDslValidator.Function _xblockexpression_2 = null;
+        {
+          f.retType = func_decl.getDeclaration_specifiers().get(0).getType_specifier().getType_name_str();
+          f.name = func_decl.getDeclarator().getDirect_declarator().getIdentifier().toString();
+          EList<parameter_declaration> params = func_decl.getDeclarator().getDirect_declarator().getDirect_declarator_linha().getDirect_declarator_complemento().getParameter_type_list().getParameter_lista().getParameter_declarations();
+          f.param_number = params.size();
+          for (int i = 0; (i < f.param_number); i++) {
+            {
+              parameter_declaration decl = params.get(i);
+              f.params_types.add(decl.getDeclaration_specifiers().getType_specifier().getType_name_str());
+              this.variables.put(decl.getDeclarator().getDirect_declarator().getIdentifier(), decl.getDeclaration_specifiers().getType_specifier().getType_name_str());
+            }
+          }
+          InputOutput.<String>println((((("Inserting function... " + f.name) + "with ") + Integer.valueOf(f.param_number)) + " params"));
+          _xblockexpression_2 = this.functions.put(f.name, f);
+        }
+        _xifexpression = _xblockexpression_2;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  @Check
+  public void checkAtribType(final assignment_expression asexp) {
+    String idLeft = asexp.getUnary_expression().getPostfix_expression().getPrimary_expression().getIdentifier();
+    String argType = this.variables.get(idLeft);
+    boolean _contains = this.variables.keySet().contains(idLeft);
+    boolean _not = (!_contains);
+    if (_not) {
+      this.error("Variavel não declarada", 
+        MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION);
+    }
+    if (((!Objects.equal(asexp.getAssignment_expression(), null)) && (!Objects.equal(MyDslValidator.getExpType(asexp.getAssignment_expression()), null)))) {
+      assignment_expression arg = asexp.getAssignment_expression();
+      InputOutput.<String>println("Is an expression");
+      MyDslValidator.ExpRetType expRet = MyDslValidator.getExpType(arg);
+      boolean _equals = Objects.equal(expRet, MyDslValidator.ExpRetType.NUMERIC);
+      if (_equals) {
+        boolean _equals_1 = Objects.equal(argType, "bool");
+        if (_equals_1) {
+          this.error("Variavel não compativel com este tipo", 
+            null);
+        }
+      } else {
+        boolean _equals_2 = Objects.equal(expRet, MyDslValidator.ExpRetType.BOOL);
+        if (_equals_2) {
+          boolean _notEquals = (!Objects.equal(argType, "bool"));
+          if (_notEquals) {
+            this.error("Tipo de parametro não compativel", 
+              null);
+          }
+        }
+      }
+    } else {
+      primary_expression idOrCons = this.primaryExpFromAssigExp(asexp.getAssignment_expression());
+      if (((!Objects.equal(idOrCons.getIdentifier(), null)) && (!idOrCons.getIdentifier().trim().isEmpty()))) {
+        boolean _containsKey = this.variables.containsKey(idOrCons.getIdentifier());
+        if (_containsKey) {
+          String _get = this.variables.get(idOrCons.getIdentifier());
+          boolean _notEquals_1 = (!Objects.equal(_get, argType));
+          if (_notEquals_1) {
+            this.error("Variavel não compativel com este tipo", 
+              null);
+          }
+        } else {
+          boolean _containsKey_1 = this.functions.containsKey(idOrCons.getIdentifier());
+          if (_containsKey_1) {
+            boolean _notEquals_2 = (!Objects.equal(this.functions.get(idOrCons.getIdentifier()).retType, argType));
+            if (_notEquals_2) {
+              this.error("Variavel não compativel com este tipo", 
+                null);
+            }
+          }
+        }
+      }
+      if ((((!Objects.equal(idOrCons.getConstant(), null)) && (!Objects.equal(idOrCons.getConstant().getChar(), null))) && (!Objects.equal(argType, "char")))) {
+        this.error("Variavel não compativel com este tipo", 
+          null);
+      }
+    }
+  }
+  
+  public compound_statement checkSwitch(final selection_statement sel_stmt) {
+    compound_statement _xblockexpression = null;
+    {
+      String id = sel_stmt.getExpression().getAssignment_expression().getAssignment_expression().getConditional_expression().getLogical_or_expression().getLogical_and_expression().getInclusive_or_expression().getExclusive_or_expression().getAnd_expression().getEquality_expression().getRelational_expression().getShift_expression().getAdditive_expression().getMultiplicative_expression().getCast_expression().getUnary_expression().getPostfix_expression().getPrimary_expression().getIdentifier();
+      boolean _contains = this.variables.keySet().contains(id);
+      if (_contains) {
+        this.error("Variavel não declarada", MyDslPackage.Literals.SELECTION_STATEMENT__EXPRESSION);
+      }
+      _xblockexpression = sel_stmt.getStatement().getCompound_statement();
+    }
+    return _xblockexpression;
   }
 }

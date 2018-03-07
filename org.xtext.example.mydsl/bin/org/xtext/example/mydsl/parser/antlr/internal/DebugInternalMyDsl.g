@@ -690,8 +690,6 @@ ruleprimary_expression:
 		    |
 		ruleconstant
 		    |
-		rulestring_dsl
-		    |
 		'('
 		ruleexpression
 		')'
@@ -1436,15 +1434,6 @@ ruleinit_declarator:
 	)
 ;
 
-// Rule string_dsl
-rulestring_dsl:
-	(
-		RULE_STRING_LITERAL
-		    |
-		'__func__'
-	)
-;
-
 // Rule constant
 ruleconstant:
 	(
@@ -1452,9 +1441,9 @@ ruleconstant:
 		    |
 		RULE_FLOAT
 		    |
-		RULE_CHAR
+		RULE_CHARZ
 		    |
-		RULE_STRING
+		RULE_STRINGZ
 		    |
 		'enum'
 	)
@@ -1462,7 +1451,9 @@ ruleconstant:
 
 RULE_IDZ : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'1'..'9')*;
 
-RULE_CHAR : '\'' . '\'';
+RULE_CHARZ : '\'' ('a'..'z'|'A'..'Z'|'_'|'1'..'9') '\'';
+
+RULE_STRINGZ : ('\'' ('a'..'z'|'A'..'Z'|'_'|'1'..'9'|'!')* '\''|'"' ('a'..'z'|'A'..'Z'|'_'|'1'..'9'|'!')* '"');
 
 RULE_FLOAT : ('0'..'9')+ '.' ('0'..'9')*;
 

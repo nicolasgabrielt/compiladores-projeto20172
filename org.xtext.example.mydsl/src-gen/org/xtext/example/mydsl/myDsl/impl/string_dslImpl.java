@@ -8,6 +8,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.string_dsl;
@@ -26,7 +27,7 @@ import org.xtext.example.mydsl.myDsl.string_dsl;
  *
  * @generated
  */
-public class string_dslImpl extends primary_expressionImpl implements string_dsl
+public class string_dslImpl extends MinimalEObjectImpl.Container implements string_dsl
 {
   /**
    * The default value of the '{@link #getString_literal() <em>String literal</em>}' attribute.

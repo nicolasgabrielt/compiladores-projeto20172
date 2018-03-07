@@ -187,7 +187,7 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIdentifier_list_linhaAccess().getGroup_1(), "rule__Identifier_list_linha__Group_1__0");
 					put(grammarAccess.getTranslation_unit_linhaAccess().getGroup(), "rule__Translation_unit_linha__Group__0");
 					put(grammarAccess.getTranslation_unit_linhaAccess().getGroup_1(), "rule__Translation_unit_linha__Group_1__0");
-					put(grammarAccess.getPrimary_expressionAccess().getGroup_3(), "rule__Primary_expression__Group_3__0");
+					put(grammarAccess.getPrimary_expressionAccess().getGroup_2(), "rule__Primary_expression__Group_2__0");
 					put(grammarAccess.getGeneric_selectionAccess().getGroup(), "rule__Generic_selection__Group__0");
 					put(grammarAccess.getGeneric_assoc_listAccess().getGroup(), "rule__Generic_assoc_list__Group__0");
 					put(grammarAccess.getGeneric_assoc_list_linhaAccess().getGroup(), "rule__Generic_assoc_list_linha__Group__0");
@@ -476,8 +476,8 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTranslation_unit_linhaAccess().getTranslation_unit_linhaAssignment_1_1(), "rule__Translation_unit_linha__Translation_unit_linhaAssignment_1_1");
 					put(grammarAccess.getPrimary_expressionAccess().getIdentifierAssignment_0(), "rule__Primary_expression__IdentifierAssignment_0");
 					put(grammarAccess.getPrimary_expressionAccess().getConstantAssignment_1(), "rule__Primary_expression__ConstantAssignment_1");
-					put(grammarAccess.getPrimary_expressionAccess().getExpressionAssignment_3_1(), "rule__Primary_expression__ExpressionAssignment_3_1");
-					put(grammarAccess.getPrimary_expressionAccess().getGeneric_selectionAssignment_4(), "rule__Primary_expression__Generic_selectionAssignment_4");
+					put(grammarAccess.getPrimary_expressionAccess().getExpressionAssignment_2_1(), "rule__Primary_expression__ExpressionAssignment_2_1");
+					put(grammarAccess.getPrimary_expressionAccess().getGeneric_selectionAssignment_3(), "rule__Primary_expression__Generic_selectionAssignment_3");
 					put(grammarAccess.getEnumeration_constantAccess().getIdentifierAssignment(), "rule__Enumeration_constant__IdentifierAssignment");
 					put(grammarAccess.getGeneric_selectionAccess().get_genericAssignment_0(), "rule__Generic_selection___genericAssignment_0");
 					put(grammarAccess.getGeneric_selectionAccess().getAssignment_expressionAssignment_2(), "rule__Generic_selection__Assignment_expressionAssignment_2");

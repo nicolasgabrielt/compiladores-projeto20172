@@ -5214,29 +5214,17 @@ ruleprimary_expression returns [EObject current=null]
 			)
 		)
 		    |
-		{
-			/* */
-		}
-		{
-			newCompositeNode(grammarAccess.getPrimary_expressionAccess().getString_dslParserRuleCall_2());
-		}
-		this_string_dsl_2=rulestring_dsl
-		{
-			$current = $this_string_dsl_2.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
 		(
-			otherlv_3='('
+			otherlv_2='('
 			{
-				newLeafNode(otherlv_3, grammarAccess.getPrimary_expressionAccess().getLeftParenthesisKeyword_3_0());
+				newLeafNode(otherlv_2, grammarAccess.getPrimary_expressionAccess().getLeftParenthesisKeyword_2_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getPrimary_expressionAccess().getExpressionExpressionParserRuleCall_3_1_0());
+						newCompositeNode(grammarAccess.getPrimary_expressionAccess().getExpressionExpressionParserRuleCall_2_1_0());
 					}
-					lv_expression_4_0=ruleexpression
+					lv_expression_3_0=ruleexpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getPrimary_expressionRule());
@@ -5244,24 +5232,24 @@ ruleprimary_expression returns [EObject current=null]
 						set(
 							$current,
 							"expression",
-							lv_expression_4_0,
+							lv_expression_3_0,
 							"org.xtext.example.mydsl.MyDsl.expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
-			otherlv_5=')'
+			otherlv_4=')'
 			{
-				newLeafNode(otherlv_5, grammarAccess.getPrimary_expressionAccess().getRightParenthesisKeyword_3_2());
+				newLeafNode(otherlv_4, grammarAccess.getPrimary_expressionAccess().getRightParenthesisKeyword_2_2());
 			}
 		)
 		    |
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getPrimary_expressionAccess().getGeneric_selectionGeneric_selectionParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getPrimary_expressionAccess().getGeneric_selectionGeneric_selectionParserRuleCall_3_0());
 				}
-				lv_generic_selection_6_0=rulegeneric_selection
+				lv_generic_selection_5_0=rulegeneric_selection
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getPrimary_expressionRule());
@@ -5269,7 +5257,7 @@ ruleprimary_expression returns [EObject current=null]
 					set(
 						$current,
 						"generic_selection",
-						lv_generic_selection_6_0,
+						lv_generic_selection_5_0,
 						"org.xtext.example.mydsl.MyDsl.generic_selection");
 					afterParserOrEnumRuleCall();
 				}
@@ -10915,58 +10903,6 @@ ruleinit_declarator returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRulestring_dsl
-entryRulestring_dsl returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getString_dslRule()); }
-	iv_rulestring_dsl=rulestring_dsl
-	{ $current=$iv_rulestring_dsl.current; }
-	EOF;
-
-// Rule string_dsl
-rulestring_dsl returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				lv_string_literal_0_0=RULE_STRING_LITERAL
-				{
-					newLeafNode(lv_string_literal_0_0, grammarAccess.getString_dslAccess().getString_literalSTRING_LITERALTerminalRuleCall_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getString_dslRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"string_literal",
-						lv_string_literal_0_0,
-						"org.xtext.example.mydsl.MyDsl.STRING_LITERAL");
-				}
-			)
-		)
-		    |
-		(
-			(
-				lv___func___1_0='__func__'
-				{
-					newLeafNode(lv___func___1_0, grammarAccess.getString_dslAccess().get__func____func__Keyword_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getString_dslRule());
-					}
-					setWithLastConsumed($current, "__func__", lv___func___1_0, "__func__");
-				}
-			)
-		)
-	)
-;
-
 // Entry rule entryRuleconstant
 entryRuleconstant returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getConstantRule()); }
@@ -11023,9 +10959,9 @@ ruleconstant returns [EObject current=null]
 		    |
 		(
 			(
-				lv_char_2_0=RULE_CHAR
+				lv_char_2_0=RULE_CHARZ
 				{
-					newLeafNode(lv_char_2_0, grammarAccess.getConstantAccess().getCharCHARTerminalRuleCall_2_0());
+					newLeafNode(lv_char_2_0, grammarAccess.getConstantAccess().getCharCHARZTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -11035,16 +10971,16 @@ ruleconstant returns [EObject current=null]
 						$current,
 						"char",
 						lv_char_2_0,
-						"org.xtext.example.mydsl.MyDsl.CHAR");
+						"org.xtext.example.mydsl.MyDsl.CHARZ");
 				}
 			)
 		)
 		    |
 		(
 			(
-				lv_string_3_0=RULE_STRING
+				lv_string_3_0=RULE_STRINGZ
 				{
-					newLeafNode(lv_string_3_0, grammarAccess.getConstantAccess().getStringSTRINGTerminalRuleCall_3_0());
+					newLeafNode(lv_string_3_0, grammarAccess.getConstantAccess().getStringSTRINGZTerminalRuleCall_3_0());
 				}
 				{
 					if ($current==null) {
@@ -11054,7 +10990,7 @@ ruleconstant returns [EObject current=null]
 						$current,
 						"string",
 						lv_string_3_0,
-						"org.eclipse.xtext.common.Terminals.STRING");
+						"org.xtext.example.mydsl.MyDsl.STRINGZ");
 				}
 			)
 		)
@@ -11078,7 +11014,9 @@ ruleconstant returns [EObject current=null]
 
 RULE_IDZ : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'1'..'9')*;
 
-RULE_CHAR : '\'' . '\'';
+RULE_CHARZ : '\'' ('a'..'z'|'A'..'Z'|'_'|'1'..'9') '\'';
+
+RULE_STRINGZ : ('\'' ('a'..'z'|'A'..'Z'|'_'|'1'..'9'|'!')* '\''|'"' ('a'..'z'|'A'..'Z'|'_'|'1'..'9'|'!')* '"');
 
 RULE_FLOAT : ('0'..'9')+ '.' ('0'..'9')*;
 

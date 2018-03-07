@@ -93,19 +93,27 @@ class MyDslValidator extends AbstractMyDslValidator {
 	private var variables = <String,String>newHashMap();
 	
 	def checkDeclarationWithConstant(String leftType, primary_expression rightType){
-		if(rightType.constant.f_constant == null && rightType.constant.enumz == null && rightType.constant.char == null){
-			if(leftType == "char" || leftType == 'bool' || leftType == 'void'){
+		if(rightType.constant.f_constant == null && rightType.constant.enumz == null && rightType.constant.char == null && rightType.constant.string == null){
+			System.out.println("RT -> null");
+			if(leftType == "char" || leftType == 'bool' || leftType == 'void' || leftType == "string"){
 							error('Esse tipo não recebe valores numéricos', 
 					MyDslPackage.Literals.DECLARATION__DECLARATION_SPECIFIERS);
 			}
-		}else if(rightType.constant.f_constant != null){
-			if(leftType == "char" || leftType == 'bool' || leftType == 'void' || leftType == "int"){
+		} else if(rightType.constant.f_constant != null){
+			System.out.println("RT -> Float");
+			if(leftType == "char" || leftType == 'bool' || leftType == 'void' || leftType == "int" || leftType == "string"){
 							error('Esse tipo não recebe valores numéricos com ponto flutuante', 
 					MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
 			}
 		} else if (rightType.constant.char != null) {
-			if (leftType != "char") {
+			System.out.println("RT -> Char");
+			if (leftType == "int" || leftType == "float") {
 				error("Esse tipo não recebe char", MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
+			}
+		} else if (rightType.constant.string != null) {
+			System.out.println("RT -> String");
+			if (leftType == "int" || leftType == "float" || leftType == "char") {
+				error("Esse tipo não recebe string", MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST);
 			}
 		}
 	}
@@ -123,7 +131,7 @@ class MyDslValidator extends AbstractMyDslValidator {
 			var expType = getExpType(
 			decl.init_declarator_list.get(0).init_declarator.initializer.assignment_expression);
 			if (expType == ExpRetType.NUMERIC) {
-				if (leftType == "bool" || leftType == 'char') {
+				if (leftType == "bool" || leftType == 'char' || leftType == "string") {
 					error(
 						"Tipos incompativeis para atribuição",
 						MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST
@@ -133,12 +141,19 @@ class MyDslValidator extends AbstractMyDslValidator {
 				if (leftType != "bool") {
 					error(
 						"Não é possível atribuir retorno booleano para o tipo declarado",
-						MyDslPackage.Literals.
-							DECLARATION__INIT_DECLARATOR_LIST
+						MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST
 					)
 				}
-			} 
+			} else if (expType == ExpRetType.STRING) {
+				System.out.println("expType -> String");
+				if (leftType == "float" || leftType == "int" || leftType == "char") {
+					error("Esse tipo não recebe string", 
+						MyDslPackage.Literals.DECLARATION__INIT_DECLARATOR_LIST
+					)
+				}
+			}
 		}
+		
 		var rightType = decl.init_declarator_list.get(0).init_declarator.initializer.assignment_expression.conditional_expression.
 							logical_or_expression.logical_and_expression.inclusive_or_expression.exclusive_or_expression.
 							and_expression.equality_expression.relational_expression.shift_expression.additive_expression.
@@ -229,6 +244,315 @@ class MyDslValidator extends AbstractMyDslValidator {
 		if(curent11.multiplicative_expression_linha != null){
 			return ExpRetType.NUMERIC;
 		}
+		
 		return null;		
 	}
+	
+	@Check
+    def checkBlockItemList(block_item_list item){
+        if(item.block_item_list_linha.isEmpty()){
+            //função de uma linha
+            //Final na função
+            var current = item.eContainer();
+            while(current != null && !(current instanceof function_definition || current instanceof selection_statement)){
+                current = current.eContainer();
+            }
+            if(current instanceof function_definition){
+                println("Achou funcao...");
+                var func = current as function_definition;
+                var retType = func.declaration_specifiers.get(0).type_specifier.type_name_str;
+                if(retType != "void"){
+                    if(item.block_item.statement == null || item.block_item.statement.jump_statement == null
+                        || item.block_item.statement.jump_statement.expression == null
+                    ){
+                        error("Falta o return", null);
+                    }
+                }
+            }
+        }    
+    }
+    
+    @Check
+    def checkBlockItemListLinha(block_item_list_linha item){
+        println("Sem instancia...");
+        if(item.block_item_list_linha.isEmpty()){
+            println("Iniciando checagem...");
+            var current = item.eContainer();
+            while(current != null && !(current instanceof function_definition || current instanceof selection_statement)){
+                current = current.eContainer();
+            }
+            println("Achou funcao...");
+            if(current instanceof function_definition){
+                println("Achou funcao2...");
+                var func = current as function_definition;
+                var retType = func.declaration_specifiers.get(0).type_specifier.type_name_str;
+                if(retType != "void"){
+                    if((item.block_item.statement == null || item.block_item.statement.jump_statement == null
+                        || item.block_item.statement.jump_statement.expression == null)
+                    ){
+                        error("Falta o return", null);
+                    }
+                }
+            }
+            //Final na função
+        }    
+    }
+    
+    def primaryExpFromAssigExp(assignment_expression exp){
+		var ret = exp.conditional_expression.
+		logical_or_expression.logical_and_expression.inclusive_or_expression.exclusive_or_expression.
+		and_expression.equality_expression.relational_expression.shift_expression.additive_expression.
+		multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression;
+		return ret;
+	}
+	
+    @Check
+	def checkFunctionCall(postfix_expression_complement call){
+		var parent = call.eContainer().eContainer() as postfix_expression;
+		var name = parent.primary_expression.identifier;
+		if(!functions.containsKey(name)){
+			error("Função não definida",
+				null
+			)
+		}else{
+			var func = functions.get(name);
+			println("Checking params for: " + func.name + " With: " + func.params_types.size() + " params.")
+			if(func.param_number != call.argument_expression_list.assignment_expressions.size()){
+				error("Numero de parametros incompativeis",
+					MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+				)
+			}else{
+				for(var i = 0; i < call.argument_expression_list.assignment_expressions.size(); i++){
+					var arg = call.argument_expression_list.assignment_expressions.get(i);
+					println("Size: " + call.argument_expression_list.assignment_expressions.size());
+					println("For: " + i);
+					var argType = func.params_types.get(i);
+					if(getExpType(arg) != null){
+						println("Is an expression");
+						var expRet = getExpType(arg);
+						if(expRet == ExpRetType.NUMERIC){
+							if(argType == 'bool'){
+								error("Tipo de parametro não compativel",
+									MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+								)
+							}
+						}else if(expRet == ExpRetType.BOOL){
+							if(argType != 'bool'){
+								error("Tipo de parametro não compativel",
+									MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+								)
+							}
+						}
+					}else{
+						println("Is an contant or id")
+						var idOrCons = primaryExpFromAssigExp(arg);
+						println("CP1");
+						if(idOrCons.identifier != null && !idOrCons.identifier.trim().isEmpty()){
+							println("CP2");
+							if(variables.containsKey(idOrCons.identifier)){
+								//é UMA VARIAAVEL
+								if(variables.get(idOrCons.identifier) != argType){
+									println("CP3");
+									error("Tipo de parametro não compativel",
+										MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+									)
+								}
+							}else if( functions.containsKey(idOrCons.identifier)){
+								if(functions.get(idOrCons.identifier).retType != argType){
+									error("Tipo de parametro não compativel",
+										MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+									)
+								}
+							}
+						}
+						println("CP4");
+						if(idOrCons.constant != null && idOrCons.constant.char != null && argType != 'char'){
+							println("CP5");
+							error("Tipo de parametro não com 	pativel",
+									MyDslPackage.Literals.POSTFIX_EXPRESSION_COMPLEMENT__ARGUMENT_EXPRESSION_LIST
+							)
+						}
+						println("CP7");
+						//O argumento é uma contante ou um id
+					}
+					println("End of iteration");
+					//Validating params
+					//call.argument_expression_list.get(i)
+				}
+				println("For ended");
+			}
+		}
+		
+	}
+	
+	@Check
+	def checkForEmptyParamFunc(PostFixEmpryParams call){
+		var parent = call.eContainer().eContainer() as postfix_expression;
+		var name = parent.primary_expression.identifier;
+		if(!functions.containsKey(name)){
+			error("Função não definida",
+				null
+			)
+		}else{
+			var func = functions.get(name);
+			if(func.param_number != 0){
+				error("Numero de parametros incompativeis",
+					null
+				)
+			}
+		}
+	}
+	
+	@Check
+	def validateFunctionReturn(jump_statement ret){
+		if(ret.expression != null){
+			var current = ret.eContainer();
+            while(current != null && !(current instanceof function_definition)){
+                current = current.eContainer();
+            }
+            if(current instanceof function_definition){
+                var func = current as function_definition;
+                var argType = func.declaration_specifiers.get(0).type_specifier.type_name_str;
+                if(argType != "void"){
+                	var arg = ret.expression.assignment_expression;
+                	if(getExpType(arg) != null){
+						var expRet = getExpType(arg);
+						if(expRet == ExpRetType.NUMERIC){
+							if(argType == 'bool'){
+								error("Tipo de parametro não compativel",
+									null
+								)
+							}
+						}else if(expRet == ExpRetType.BOOL){
+							if(argType != 'bool'){
+								error("Tipo de parametro não compativel",
+									null
+								)
+							}
+						}
+					}else{
+						println("Is an contant or id")
+						var idOrCons = primaryExpFromAssigExp(arg);
+						if(idOrCons.identifier != null && !idOrCons.identifier.trim().isEmpty()){
+							if(variables.containsKey(idOrCons.identifier)){
+								//é UMA VARIAAVEL
+								if(variables.get(idOrCons.identifier) != argType){
+									error("Retorno não compatível",
+										null
+									)
+								}
+							}else if( functions.containsKey(idOrCons.identifier)){
+								if(functions.get(idOrCons.identifier).retType != argType){
+									error("Retorno não compatível",
+										null
+									)
+								}
+							}
+						}
+						if(idOrCons.constant != null && idOrCons.constant.char != null && argType != 'char'){
+							error("Retorno não compatível",
+									null
+							)
+						}
+						//O argumento é uma contante ou um id
+					}
+                }
+            }
+		}
+	}
+	
+	@Check
+	def checkFunctionDefinition(function_definition func_decl){
+		//Não tem parametros
+		var f = new Function();		
+		if(func_decl.declarator.direct_declarator.direct_declarator_linha.direct_declarator_complemento == null){
+			f.retType = func_decl.declaration_specifiers.get(0).type_specifier.type_name_str;
+			f.name = func_decl.declarator.direct_declarator.identifier.toString();
+			f.param_number = 0;
+			println("Inserting function... " + f.name + "With 0 params");
+			functions.put(f.name, f);
+		}else{
+			f.retType = func_decl.declaration_specifiers.get(0).type_specifier.type_name_str;
+			f.name = func_decl.declarator.direct_declarator.identifier.toString();
+			var params = func_decl.declarator.direct_declarator.direct_declarator_linha.direct_declarator_complemento.parameter_type_list.parameter_lista.parameter_declarations;
+			f.param_number = params.size;		
+			for(var i = 0; i< f.param_number; i++){
+				var decl = params.get(i);
+				f.params_types.add(decl.declaration_specifiers.type_specifier.type_name_str);
+				
+				variables.put(decl.declarator.direct_declarator.identifier, decl.declaration_specifiers.type_specifier.type_name_str);
+			}
+			println("Inserting function... " + f.name + "with " + f.param_number + " params");
+			functions.put(f.name, f);
+			//println( "size:" + func_decl.declarator.direct_declarator.direct_declarator_linha.direct_declarator_complemento.parameter_type_list.parameter_list.get(0));
+		}
+	}
+	
+	@Check
+	def checkAtribType(assignment_expression asexp){		
+		var idLeft = asexp.unary_expression.postfix_expression.primary_expression.identifier;
+		var argType = variables.get(idLeft);
+		if(!variables.keySet.contains(idLeft)){
+			error('Variavel não declarada',
+				MyDslPackage.Literals.ASSIGNMENT_EXPRESSION__UNARY_EXPRESSION
+			);
+		}
+		if(asexp.assignment_expression != null && getExpType(asexp.assignment_expression) != null){
+			var arg = asexp.assignment_expression;
+			println("Is an expression");
+			var expRet = getExpType(arg);
+			if(expRet == ExpRetType.NUMERIC){
+				if(argType == 'bool'){
+					error("Variavel não compativel com este tipo",
+						null
+					)
+				}
+			}else if(expRet == ExpRetType.BOOL){
+				if(argType != 'bool'){
+					error("Tipo de parametro não compativel",
+						null
+					)
+				}
+			}
+		}else{
+			var idOrCons = primaryExpFromAssigExp(asexp.assignment_expression);
+			if(idOrCons.identifier != null && !idOrCons.identifier.trim().isEmpty()){
+				if(variables.containsKey(idOrCons.identifier)){
+					//é UMA VARIAAVEL
+					if(variables.get(idOrCons.identifier) != argType){						
+						error("Variavel não compativel com este tipo",
+							null
+						)
+					}
+				}else if( functions.containsKey(idOrCons.identifier)){
+					if(functions.get(idOrCons.identifier).retType != argType){
+						error("Variavel não compativel com este tipo",
+							null
+						)
+					}
+				}
+			}			
+			if(idOrCons.constant != null && idOrCons.constant.char != null && argType != 'char'){				
+				error("Variavel não compativel com este tipo",
+						null
+				)
+			}		
+			//O argumento é uma contante ou um id
+		}
+	}
+	
+	def checkSwitch(selection_statement sel_stmt){
+		var id = sel_stmt.expression.assignment_expression.assignment_expression.conditional_expression.
+							logical_or_expression.logical_and_expression.inclusive_or_expression.exclusive_or_expression.
+							and_expression.equality_expression.relational_expression.shift_expression.additive_expression.
+							multiplicative_expression.cast_expression.unary_expression.postfix_expression.primary_expression.identifier;
+		if(variables.keySet.contains(id)){
+			error("Variavel não declarada", MyDslPackage.Literals.SELECTION_STATEMENT__EXPRESSION);
+		}
+		sel_stmt.statement.compound_statement;
+	}
+//	@Check
+//	def checkAttributionTypes(attribution) {
+//		
+//	}
 }

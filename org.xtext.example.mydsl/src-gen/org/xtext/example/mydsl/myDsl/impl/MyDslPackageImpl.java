@@ -5740,7 +5740,6 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     // Add supertypes to classes
     type_qualifier_listEClass.getESuperTypes().add(this.getdirect_abstract_declarator_complement());
     type_nameEClass.getESuperTypes().add(this.getpostfix_expression());
-    string_dslEClass.getESuperTypes().add(this.getprimary_expression());
     enumeratorListLinhaActionEClass.getESuperTypes().add(this.getenumerator_list_linha());
     structOrUnionSpecifierComplementActionEClass.getESuperTypes().add(this.getstruct_or_union_specifier_complement());
     structDeclarationListLinhaActionEClass.getESuperTypes().add(this.getstruct_declaration_list_linha());

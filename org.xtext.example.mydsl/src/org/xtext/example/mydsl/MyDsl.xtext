@@ -290,7 +290,6 @@ translation_unit_linha:
 primary_expression:
 	identifier=IDz
 	| constant=constant
-	| string_dsl
 	| '(' expression=expression ')'
 	| generic_selection=generic_selection;
 
@@ -652,20 +651,25 @@ init_declarator
 	;
 
 string_dsl
-	: string_literal=STRING_LITERAL
+	: string_literal=STRING
 	| __func__='__func__'
 ;
 
 constant
 	: i_constant=INT	/* includes character_constant */
 	| f_constant=FLOAT
-	| char=CHAR
-	| string=STRING
+	| char=CHARZ
+	| string=STRINGZ
 	| enumz='enum'	/* after it has been defined as such */
 	;
 
 terminal IDz : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'1'..'9')* ;
-terminal CHAR: '\''.'\'';
+terminal CHARZ: "'" ('a'..'z'|'A'..'Z'|'_'|'1'..'9') "'";
+terminal STRINGZ: 
+	"'" ('a'..'z'|'A'..'Z'|'_'|'1'..'9'|'!')* "'" |
+	'"' ('a'..'z'|'A'..'Z'|'_'|'1'..'9'|'!')* '"'
+	
+;
 
 terminal FLOAT:
 	('0'..'9')+ '.' ('0'..'9')*

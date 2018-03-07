@@ -805,7 +805,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     constant returns constant
 	 *
 	 * Constraint:
-	 *     (i_constant=INT | f_constant=FLOAT | char=CHAR | string=STRING | enumz='enum')
+	 *     (i_constant=INT | f_constant=FLOAT | char=CHARZ | string=STRINGZ | enumz='enum')
 	 */
 	protected void sequence_constant(ISerializationContext context, constant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2118,11 +2118,10 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     primary_expression returns string_dsl
 	 *     string_dsl returns string_dsl
 	 *
 	 * Constraint:
-	 *     (string_literal=STRING_LITERAL | __func__='__func__')
+	 *     (string_literal=STRING | __func__='__func__')
 	 */
 	protected void sequence_string_dsl(ISerializationContext context, string_dsl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

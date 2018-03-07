@@ -3045,24 +3045,22 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIdentifierIDzTerminalRuleCall_0_0 = (RuleCall)cIdentifierAssignment_0.eContents().get(0);
 		private final Assignment cConstantAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cConstantConstantParserRuleCall_1_0 = (RuleCall)cConstantAssignment_1.eContents().get(0);
-		private final RuleCall cString_dslParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cExpressionAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cExpressionExpressionParserRuleCall_3_1_0 = (RuleCall)cExpressionAssignment_3_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
-		private final Assignment cGeneric_selectionAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
-		private final RuleCall cGeneric_selectionGeneric_selectionParserRuleCall_4_0 = (RuleCall)cGeneric_selectionAssignment_4.eContents().get(0);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cExpressionAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cExpressionExpressionParserRuleCall_2_1_0 = (RuleCall)cExpressionAssignment_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		private final Assignment cGeneric_selectionAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final RuleCall cGeneric_selectionGeneric_selectionParserRuleCall_3_0 = (RuleCall)cGeneric_selectionAssignment_3.eContents().get(0);
 		
 		//primary_expression:
 		//	identifier=IDz
 		//	| constant=constant
-		//	| string_dsl
 		//	| '(' expression=expression ')'
 		//	| generic_selection=generic_selection;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//identifier=IDz | constant=constant | string_dsl | '(' expression=expression ')' | generic_selection=generic_selection
+		//identifier=IDz | constant=constant | '(' expression=expression ')' | generic_selection=generic_selection
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//identifier=IDz
@@ -3077,29 +3075,26 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//constant
 		public RuleCall getConstantConstantParserRuleCall_1_0() { return cConstantConstantParserRuleCall_1_0; }
 		
-		//string_dsl
-		public RuleCall getString_dslParserRuleCall_2() { return cString_dslParserRuleCall_2; }
-		
 		//'(' expression=expression ')'
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
+		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
 		
 		//expression=expression
-		public Assignment getExpressionAssignment_3_1() { return cExpressionAssignment_3_1; }
+		public Assignment getExpressionAssignment_2_1() { return cExpressionAssignment_2_1; }
 		
 		//expression
-		public RuleCall getExpressionExpressionParserRuleCall_3_1_0() { return cExpressionExpressionParserRuleCall_3_1_0; }
+		public RuleCall getExpressionExpressionParserRuleCall_2_1_0() { return cExpressionExpressionParserRuleCall_2_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
+		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
 		
 		//generic_selection=generic_selection
-		public Assignment getGeneric_selectionAssignment_4() { return cGeneric_selectionAssignment_4; }
+		public Assignment getGeneric_selectionAssignment_3() { return cGeneric_selectionAssignment_3; }
 		
 		//generic_selection
-		public RuleCall getGeneric_selectionGeneric_selectionParserRuleCall_4_0() { return cGeneric_selectionGeneric_selectionParserRuleCall_4_0; }
+		public RuleCall getGeneric_selectionGeneric_selectionParserRuleCall_3_0() { return cGeneric_selectionGeneric_selectionParserRuleCall_3_0; }
 	}
 	public class Enumeration_constantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.enumeration_constant");
@@ -6405,23 +6400,23 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.string_dsl");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Assignment cString_literalAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final RuleCall cString_literalSTRING_LITERALTerminalRuleCall_0_0 = (RuleCall)cString_literalAssignment_0.eContents().get(0);
+		private final RuleCall cString_literalSTRINGTerminalRuleCall_0_0 = (RuleCall)cString_literalAssignment_0.eContents().get(0);
 		private final Assignment c__func__Assignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final Keyword c__func____func__Keyword_1_0 = (Keyword)c__func__Assignment_1.eContents().get(0);
 		
 		//string_dsl:
-		//	string_literal=STRING_LITERAL
+		//	string_literal=STRING
 		//	| __func__='__func__';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//string_literal=STRING_LITERAL | __func__='__func__'
+		//string_literal=STRING | __func__='__func__'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//string_literal=STRING_LITERAL
+		//string_literal=STRING
 		public Assignment getString_literalAssignment_0() { return cString_literalAssignment_0; }
 		
-		//STRING_LITERAL
-		public RuleCall getString_literalSTRING_LITERALTerminalRuleCall_0_0() { return cString_literalSTRING_LITERALTerminalRuleCall_0_0; }
+		//STRING
+		public RuleCall getString_literalSTRINGTerminalRuleCall_0_0() { return cString_literalSTRINGTerminalRuleCall_0_0; }
 		
 		//__func__='__func__'
 		public Assignment get__func__Assignment_1() { return c__func__Assignment_1; }
@@ -6437,21 +6432,21 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cF_constantAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cF_constantFLOATTerminalRuleCall_1_0 = (RuleCall)cF_constantAssignment_1.eContents().get(0);
 		private final Assignment cCharAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final RuleCall cCharCHARTerminalRuleCall_2_0 = (RuleCall)cCharAssignment_2.eContents().get(0);
+		private final RuleCall cCharCHARZTerminalRuleCall_2_0 = (RuleCall)cCharAssignment_2.eContents().get(0);
 		private final Assignment cStringAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final RuleCall cStringSTRINGTerminalRuleCall_3_0 = (RuleCall)cStringAssignment_3.eContents().get(0);
+		private final RuleCall cStringSTRINGZTerminalRuleCall_3_0 = (RuleCall)cStringAssignment_3.eContents().get(0);
 		private final Assignment cEnumzAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
 		private final Keyword cEnumzEnumKeyword_4_0 = (Keyword)cEnumzAssignment_4.eContents().get(0);
 		
 		//constant:
 		//	i_constant=INT /* includes character_constant */
 		//	| f_constant=FLOAT
-		//	| char=CHAR
-		//	| string=STRING
+		//	| char=CHARZ
+		//	| string=STRINGZ
 		//	| enumz='enum' /* after it has been defined as such */;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//i_constant=INT /* includes character_constant */ | f_constant=FLOAT | char=CHAR | string=STRING | enumz='enum'
+		//i_constant=INT /* includes character_constant */ | f_constant=FLOAT | char=CHARZ | string=STRINGZ | enumz='enum'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//i_constant=INT
@@ -6466,17 +6461,17 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//FLOAT
 		public RuleCall getF_constantFLOATTerminalRuleCall_1_0() { return cF_constantFLOATTerminalRuleCall_1_0; }
 		
-		//char=CHAR
+		//char=CHARZ
 		public Assignment getCharAssignment_2() { return cCharAssignment_2; }
 		
-		//CHAR
-		public RuleCall getCharCHARTerminalRuleCall_2_0() { return cCharCHARTerminalRuleCall_2_0; }
+		//CHARZ
+		public RuleCall getCharCHARZTerminalRuleCall_2_0() { return cCharCHARZTerminalRuleCall_2_0; }
 		
-		//string=STRING
+		//string=STRINGZ
 		public Assignment getStringAssignment_3() { return cStringAssignment_3; }
 		
-		//STRING
-		public RuleCall getStringSTRINGTerminalRuleCall_3_0() { return cStringSTRINGTerminalRuleCall_3_0; }
+		//STRINGZ
+		public RuleCall getStringSTRINGZTerminalRuleCall_3_0() { return cStringSTRINGZTerminalRuleCall_3_0; }
 		
 		//enumz='enum'
 		public Assignment getEnumzAssignment_4() { return cEnumzAssignment_4; }
@@ -6604,7 +6599,8 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	private final String_dslElements pString_dsl;
 	private final ConstantElements pConstant;
 	private final TerminalRule tIDz;
-	private final TerminalRule tCHAR;
+	private final TerminalRule tCHARZ;
+	private final TerminalRule tSTRINGZ;
 	private final TerminalRule tFLOAT;
 	private final TerminalRule tO;
 	private final TerminalRule tD;
@@ -6751,7 +6747,8 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pString_dsl = new String_dslElements();
 		this.pConstant = new ConstantElements();
 		this.tIDz = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.IDz");
-		this.tCHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.CHAR");
+		this.tCHARZ = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.CHARZ");
+		this.tSTRINGZ = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.STRINGZ");
 		this.tFLOAT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.FLOAT");
 		this.tO = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.O");
 		this.tD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.D");
@@ -7373,7 +7370,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	//primary_expression:
 	//	identifier=IDz
 	//	| constant=constant
-	//	| string_dsl
 	//	| '(' expression=expression ')'
 	//	| generic_selection=generic_selection;
 	public Primary_expressionElements getPrimary_expressionAccess() {
@@ -8137,7 +8133,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//string_dsl:
-	//	string_literal=STRING_LITERAL
+	//	string_literal=STRING
 	//	| __func__='__func__';
 	public String_dslElements getString_dslAccess() {
 		return pString_dsl;
@@ -8150,8 +8146,8 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	//constant:
 	//	i_constant=INT /* includes character_constant */
 	//	| f_constant=FLOAT
-	//	| char=CHAR
-	//	| string=STRING
+	//	| char=CHARZ
+	//	| string=STRINGZ
 	//	| enumz='enum' /* after it has been defined as such */;
 	public ConstantElements getConstantAccess() {
 		return pConstant;
@@ -8167,10 +8163,17 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		return tIDz;
 	}
 	
-	//terminal CHAR:
-	//	'\'' . '\'';
-	public TerminalRule getCHARRule() {
-		return tCHAR;
+	//terminal CHARZ:
+	//	"'" ('a'..'z' | 'A'..'Z' | '_' | '1'..'9') "'";
+	public TerminalRule getCHARZRule() {
+		return tCHARZ;
+	}
+	
+	//terminal STRINGZ:
+	//	"'" ('a'..'z' | 'A'..'Z' | '_' | '1'..'9' | '!')* "'" |
+	//	'"' ('a'..'z' | 'A'..'Z' | '_' | '1'..'9' | '!')* '"';
+	public TerminalRule getSTRINGZRule() {
+		return tSTRINGZ;
 	}
 	
 	//terminal FLOAT:

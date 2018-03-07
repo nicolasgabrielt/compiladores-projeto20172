@@ -849,7 +849,6 @@ public class MyDslSwitch<T> extends Switch<T>
       {
         string_dsl string_dsl = (string_dsl)theEObject;
         T result = casestring_dsl(string_dsl);
-        if (result == null) result = caseprimary_expression(string_dsl);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }

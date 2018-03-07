@@ -4336,49 +4336,13 @@ public interface MyDslPackage extends EPackage
   int STRING_DSL = 110;
 
   /**
-   * The feature id for the '<em><b>Identifier</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRING_DSL__IDENTIFIER = PRIMARY_EXPRESSION__IDENTIFIER;
-
-  /**
-   * The feature id for the '<em><b>Constant</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRING_DSL__CONSTANT = PRIMARY_EXPRESSION__CONSTANT;
-
-  /**
-   * The feature id for the '<em><b>Expression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRING_DSL__EXPRESSION = PRIMARY_EXPRESSION__EXPRESSION;
-
-  /**
-   * The feature id for the '<em><b>Generic selection</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRING_DSL__GENERIC_SELECTION = PRIMARY_EXPRESSION__GENERIC_SELECTION;
-
-  /**
    * The feature id for the '<em><b>String literal</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STRING_DSL__STRING_LITERAL = PRIMARY_EXPRESSION_FEATURE_COUNT + 0;
+  int STRING_DSL__STRING_LITERAL = 0;
 
   /**
    * The feature id for the '<em><b>func </b></em>' attribute.
@@ -4387,7 +4351,7 @@ public interface MyDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STRING_DSL__FUNC_ = PRIMARY_EXPRESSION_FEATURE_COUNT + 1;
+  int STRING_DSL__FUNC_ = 1;
 
   /**
    * The number of structural features of the '<em>string dsl</em>' class.
@@ -4396,7 +4360,7 @@ public interface MyDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STRING_DSL_FEATURE_COUNT = PRIMARY_EXPRESSION_FEATURE_COUNT + 2;
+  int STRING_DSL_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.constantImpl <em>constant</em>}' class.

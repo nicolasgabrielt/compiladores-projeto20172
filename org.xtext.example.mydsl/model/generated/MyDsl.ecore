@@ -642,7 +642,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="initializer" eType="#//initializer"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="string_dsl" eSuperTypes="#//primary_expression">
+  <eClassifiers xsi:type="ecore:EClass" name="string_dsl">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="string_literal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="__func__" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
